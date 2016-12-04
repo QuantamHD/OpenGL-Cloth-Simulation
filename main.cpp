@@ -54,12 +54,7 @@ void drawTriangle() {
     glBindVertexArray(0);
 }
 
-void init(){
-    glEnable(GL_DEPTH_TEST);
-    currentTime = glutGet(GLUT_ELAPSED_TIME);
-
-    setupShaders();
-
+void genVAOandVBO() {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
 
@@ -72,6 +67,14 @@ void init(){
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
+
+void init(){
+    glEnable(GL_DEPTH_TEST);
+    currentTime = glutGet(GLUT_ELAPSED_TIME);
+
+    setupShaders();
+    genVAOandVBO();
 }
 
 void resizeViewport(int width, int height){
