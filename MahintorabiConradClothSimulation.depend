@@ -256,7 +256,7 @@
 1301111165 c:\mingw\include\gl\glext.h
 	<windows.h>
 
-1480882467 source:u:\graphics\opengl-cloth-simulation\main.cpp
+1480883870 source:u:\graphics\opengl-cloth-simulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -265,6 +265,7 @@
 	<GL/glext.h>
 	<iostream>
 	"shader.h"
+	<cmath>
 
 1480877574 source:u:\graphics\opengl-cloth-simulation\shader.cpp
 	<cstdlib>
