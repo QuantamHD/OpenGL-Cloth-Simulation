@@ -1,13 +1,12 @@
 #include "Cloth.h"
+#include <iostream>
 
 
 
-Cloth::Cloth(glm::vec3& position, GLfloat width,GLfloat height,int sliceX,int sliceY)
+Cloth::Cloth(glm::vec3 position,int sliceX,int sliceY)
 {
     this->sliceX = sliceX;
     this->sliceY = sliceY;
-    this->height = height;
-    this->width = width;
     this->position = position;
     this->indices = new std::vector<GLuint>;
 }
@@ -19,9 +18,12 @@ Cloth::~Cloth()
 }
 
 void Cloth::draw(float delta){
-    glBindVertexArray(this->vaoID);
-    glElementD
+
+    glBindVertexArray(vaoID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+    glDrawElements(GL_TRIANGLES, indices->size(), GL_UNSIGNED_INT, (void*)0);
     glBindVertexArray(0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 int Cloth::byteSizeOfVertexArray(){
@@ -76,17 +78,17 @@ void Cloth::initCloth(){
     glGenBuffers(1, &vboID);
     glGenBuffers(1, &eboID);
 
-    int byteSizeArray = byteSizeOfVertexArray();
-    GLfloat* vertexArrayData = Cloth::createVertices(position, sliceX, sliceY);
-    this->vertices = Cloth::createVertices(this->position, this->sliceX, this->sliceY);
-    this->indices = Cloth::createIndices(this->sliceX, this->sliceY);
-
     glBindVertexArray(vaoID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, byteSizeArray, this->vertices, GL_STREAM_DRAW);
-
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-
+    int byteSizeArray = byteSizeOfVertexArray();
+    this->vertices = Cloth::createVertices(this->position, this->sliceX, this->sliceY);
+    this->indices = Cloth::createIndices(this->sliceX, this->sliceY);
+    int indicesByteSize = sizeof(GLuint) * indices->size();
+    glBufferData(GL_ARRAY_BUFFER, byteSizeArray, this->vertices, GL_STREAM_DRAW);
+    std::cout << glGetError() << std::endl;
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesByteSize, &(indices[0]), GL_STATIC_DRAW);
+    std::cout << glGetError() << std::endl;
 
 
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);

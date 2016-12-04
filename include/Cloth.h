@@ -19,31 +19,26 @@ static const int VERTEX_ATTRIBUTE_COUNT = 7;
 class Cloth
 {
     public:
-        Cloth(glm::vec3& position,
-              GLfloat width,
-              GLfloat height,
+        Cloth(glm::vec3 position,
               int sliceX,
               int sliceY);
         virtual ~Cloth();
         GLuint GetvboID() { return vboID; }
         GLuint GetvaoID() { return vaoID; }
         void draw(float delta);
-
+        void initCloth();
     protected:
 
     private:
         GLuint vboID;
         GLuint vaoID;
         GLuint eboID;
-        GLfloat height;
-        GLfloat width;
         int sliceX;
         int sliceY;
         glm::vec3 position;
         std::vector<GLuint> *indices;
         GLfloat* vertices;
 
-        void initCloth();
         int byteSizeOfVertexArray();
         GLfloat* createVertices(glm::vec3 position, int slicesX, int slicesY);
         std::vector<GLuint>* createIndices(int slicesX, int slicesY);

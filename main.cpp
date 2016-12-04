@@ -12,11 +12,15 @@
 #include<iostream>
 #include "shader.h"
 #include<cmath>
+#include<Cloth.h>
+#include<glm/glm.hpp>
 
 double delta = 0;
 long currentTime = 0;
 GLuint VBO, VAO;
 GLuint shaderProgram;
+Cloth cloth(glm::vec3(0,0,0),50,50);
+
 
 GLfloat vertices[] = {
     -0.5f, -0.5f, 0.0f,
@@ -36,7 +40,7 @@ void rebind_vertices() {
 }
 
 void update(){
-    std::cout << "Time per frame in seconds " << delta << std::endl;
+    //std::cout << "Time per frame in seconds " << delta << std::endl;
 }
 
 void animate(int value){
@@ -58,6 +62,7 @@ GLuint setupShaders() {
 }
 
 void drawTriangle() {
+
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindVertexArray(0);
@@ -81,9 +86,9 @@ void genVAOandVBO() {
 void init(){
     glEnable(GL_DEPTH_TEST);
     currentTime = glutGet(GLUT_ELAPSED_TIME);
-
     GLuint programId = setupShaders();
     genVAOandVBO();
+    cloth.initCloth();
 }
 
 void resizeViewport(int width, int height){
@@ -103,7 +108,7 @@ void display(){
 int main(int argc, char **argv){
     glutInit(&argc, argv);
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
-    glutInitContextVersion( 3, 2 );
+    glutInitContextVersion( 4, 0 );
     glutInitContextProfile( GLUT_CORE_PROFILE );
 
     glutInitWindowSize(720,720);

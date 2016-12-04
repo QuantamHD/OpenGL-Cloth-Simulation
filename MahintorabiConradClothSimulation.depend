@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1480884710 source:u:\graphics2016\mahintorabiconradclothsimulation\main.cpp
+1480894984 source:u:\graphics2016\mahintorabiconradclothsimulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -9,6 +9,8 @@
 	<iostream>
 	"shader.h"
 	<cmath>
+	<Cloth.h>
+	<glm/glm.hpp>
 
 1467824614 c:\mingw\include\gl\glew.h
 	<stddef.h>
@@ -299,10 +301,11 @@
 	<GL/freeglut.h>
 	<GL/glext.h>
 
-1480888598 source:u:\graphics2016\mahintorabiconradclothsimulation\src\cloth.cpp
+1480895220 source:u:\graphics2016\mahintorabiconradclothsimulation\src\cloth.cpp
 	"Cloth.h"
+	<iostream>
 
-1480888912 u:\graphics2016\mahintorabiconradclothsimulation\include\cloth.h
+1480893677 u:\graphics2016\mahintorabiconradclothsimulation\include\cloth.h
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -311,6 +314,7 @@
 	<GL/glext.h>
 	<glm/glm.hpp>
 	<Entity.h>
+	<vector>
 
 1473918302 u:\graphics2016\glm\glm\glm.hpp
 	"detail/_fixes.hpp"
