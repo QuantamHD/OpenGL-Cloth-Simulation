@@ -10,6 +10,7 @@
 #endif
 
 #include<iostream>
+#include "shader.h"
 
 double delta = 0;
 long currentTime = 0;
@@ -30,11 +31,21 @@ void animate(int value){
     glutTimerFunc(8,animate, 0);
 }
 
-
+void setupShaders() {
+    GLuint vertexShader = setShader("vertex", "vertexShader.glsl");
+    GLuint fragmentShader = setShader("fragment", "fragmentShader.glsl");
+    GLuint programId = glCreateProgram();
+    glAttachShader(programId, vertexShader);
+    glAttachShader(programId, fragmentShader);
+    glLinkProgram(programId);
+    glUseProgram(programId);
+}
 
 void init(){
     glEnable(GL_DEPTH_TEST);
     currentTime = glutGet(GLUT_ELAPSED_TIME);
+
+    setupShaders();
 }
 
 void resizeViewport(int width, int height){

@@ -265,3 +265,18 @@
 	<GL/glext.h>
 	<iostream>
 
+1480877574 source:u:\graphics\opengl-cloth-simulation\shader.cpp
+	<cstdlib>
+	<iostream>
+	<fstream>
+	<cstring>
+	"shader.h"
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+
+1480877133 u:\graphics\opengl-cloth-simulation\shader.h
+
