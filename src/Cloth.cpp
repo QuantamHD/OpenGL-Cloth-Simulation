@@ -18,7 +18,7 @@ Cloth::~Cloth()
 
 void Cloth::draw(float delta){
     glBindVertexArray(this->vaoID);
-
+    glElementD
     glBindVertexArray(0);
 }
 
@@ -83,7 +83,11 @@ void Cloth::initCloth(){
 
     glBindVertexArray(vaoID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, byteSizeArray, NULL, GL_STREAM_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, byteSizeArray, this->vertices, GL_STREAM_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+
+
 
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
