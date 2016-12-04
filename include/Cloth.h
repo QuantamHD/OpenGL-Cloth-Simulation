@@ -33,18 +33,19 @@ class Cloth
     private:
         GLuint vboID;
         GLuint vaoID;
+        GLuint eboID;
         GLfloat height;
         GLfloat width;
         int sliceX;
         int sliceY;
         glm::vec3 position;
-
+        GLuint* indicies;
+        GLfloat* vertices;
 
         void initCloth();
         int byteSizeOfVertexArray();
         GLfloat* createVertices(glm::vec3 position, int slicesX, int slicesY);
-
-
+        GLuint* createIndices(int slicesX, int slicesY);
 
 };
 

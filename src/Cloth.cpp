@@ -12,11 +12,13 @@ Cloth::Cloth(glm::vec3& position, GLfloat width,GLfloat height,int sliceX,int sl
 
 Cloth::~Cloth()
 {
-    //dtor
+    delete this->vertices;
+    delete this->indicies;
 }
 
 void Cloth::draw(float delta){
     glBindVertexArray(this->vaoID);
+
     glBindVertexArray(0);
 }
 
@@ -27,12 +29,12 @@ int Cloth::byteSizeOfVertexArray(){
 }
 
 GLfloat* Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
-    GLfloat vertices[100]; //TODO ChANGE ME
+    GLfloat* vertices = new GLfloat[Cloth::byteSizeOfVertexArray()];
     float SQUARE_SIZE = 1.0;
 
     int k = 0;
-    for (int x = 0; x <= slicesX; x++) {
-        for (int y = 0; y <= slicesY; y++) {
+    for (int x = 0; x < slicesX; x++) {
+        for (int y = 0; y < slicesY; y++) {
 
             // position
             vertices[k] = topLeft.x + x*SQUARE_SIZE; k++; //x
@@ -50,12 +52,34 @@ GLfloat* Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
     return vertices;
 }
 
+GLuint* Cloth::createIndices(int slicesX, int slicesY) {
+    GLuint* indices = new GLuint[slicesX * slicesY];
+    int k = 0;
+    for (int x = 0; x < slicesX-1; x++) {
+        for (int y = 0; y < slicesY-1; y++) {
+            //left triangle
+            indices[k] = x*slicesY + y; k++;
+            indices[k] = (x+1)*slicesY + y; k++;
+            indices[k] = x*slicesY + (y+1); k++;
+
+            //Right triangle
+            indices[k] = x*slicesY + (y+1); k++;
+            indices[k] = (x+1)*slicesY + (y+1); k++;
+            indices[k] = (x+1)*slicesY + y; k++;
+        }
+    }
+    return indices;
+}
+
 void Cloth::initCloth(){
     glGenVertexArrays(1, &vaoID);
     glGenBuffers(1, &vboID);
+    glGenBuffers(1, &eboID);
 
     int byteSizeArray = byteSizeOfVertexArray();
     GLfloat* vertexArrayData = Cloth::createVertices(position, sliceX, sliceY);
+    this->vertices = Cloth::createVertices(this->position, this->sliceX, this->sliceY);
+    this->indicies = Cloth::createIndices(this->sliceX, this->sliceY);
 
     glBindVertexArray(vaoID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
@@ -69,7 +93,4 @@ void Cloth::initCloth(){
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
-
-
-
 
