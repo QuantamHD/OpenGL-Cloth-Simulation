@@ -11,7 +11,10 @@
 #pragma comment(lib, "glew32.lib")
 #endif
 #include<glm/glm.hpp>
+#include<Entity.h>
 
+
+static const int VERTEX_ATTRIBUTE_COUNT = 7;
 class Cloth
 {
     public:
@@ -23,6 +26,8 @@ class Cloth
         virtual ~Cloth();
         GLuint GetvboID() { return vboID; }
         GLuint GetvaoID() { return vaoID; }
+        void draw(float delta);
+
     protected:
 
     private:
@@ -32,6 +37,8 @@ class Cloth
         GLfloat width;
         int sliceX;
         int sliceY;
+        glm::vec3 position;
+
 
         void initCloth();
         int byteSizeOfVertexArray();
