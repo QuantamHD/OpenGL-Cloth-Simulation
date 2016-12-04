@@ -11,10 +11,12 @@
 
 #include<iostream>
 #include "shader.h"
+#include<cmath>
 
 double delta = 0;
 long currentTime = 0;
 GLuint VBO, VAO;
+GLuint shaderProgram;
 
 GLfloat vertices[] = {
     -0.5f, -0.5f, 0.0f,
@@ -28,12 +30,18 @@ void calculateDeltaTime(){
     currentTime = newTime;
 }
 
+void rebind_vertices() {
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+}
+
 void update(){
     std::cout << "Time per frame in seconds " << delta << std::endl;
 }
 
 void animate(int value){
     update();
+    rebind_vertices();
     glutPostRedisplay();
     glutTimerFunc(8,animate, 0);
 }
@@ -46,6 +54,7 @@ GLuint setupShaders() {
     glAttachShader(programId, fragmentShader);
     glLinkProgram(programId);
     glUseProgram(programId);
+    shaderProgram = programId;
 }
 
 void drawTriangle() {
@@ -54,12 +63,7 @@ void drawTriangle() {
     glBindVertexArray(0);
 }
 
-void init(){
-    glEnable(GL_DEPTH_TEST);
-    currentTime = glutGet(GLUT_ELAPSED_TIME);
-
-    setupShaders();
-
+void genVAOandVBO() {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
 
@@ -72,6 +76,14 @@ void init(){
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
+
+void init(){
+    glEnable(GL_DEPTH_TEST);
+    currentTime = glutGet(GLUT_ELAPSED_TIME);
+
+    GLuint programId = setupShaders();
+    genVAOandVBO();
 }
 
 void resizeViewport(int width, int height){
