@@ -16,6 +16,7 @@ class Cloth
         GLuint vaoID;
         GL_FLOAT height;
         GL_FLOAT width;
+        GL_FLOAT* createVertices(glm::vec3 position, int slicesX, int slicesY);
 
 
 

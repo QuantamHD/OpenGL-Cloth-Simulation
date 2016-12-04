@@ -34,4 +34,28 @@ Cloth::~Cloth()
     //dtor
 }
 
+GL_FLOAT* Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
+    GL_FLOAT vertices[100]; //TODO ChANGE ME
+    float SQUARE_SIZE = 1.0;
+
+    int k = 0;
+    for (int x = 0; x <= slicesX; x++) {
+        for (int y = 0; y <= slicesY; y++) {
+
+            // position
+            vertices[k] = topLeft.x + x*SQUARE_SIZE; k++; //x
+            vertices[k] = topLeft.y - y*SQUARE_SIZE; k++; //y
+            vertices[k] = topLeft.z //z
+            vertices[k] = 1.0; k++; //w
+
+            // normals
+            vertices[k] = 0.0; k++; //x
+            vertices[k] = 0.0; k++; //y
+            vertices[k] = 1.0; k++; //z
+        }
+    }
+
+    return GL_FLOAT;
+}
+
 
