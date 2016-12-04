@@ -16,6 +16,11 @@ class Cloth
         GLuint vaoID;
         GL_FLOAT height;
         GL_FLOAT width;
+        int sliceX;
+        int sliceY;
+        void initCloth();
+        int byteSizeOfVertexArray();
+
 
 
 

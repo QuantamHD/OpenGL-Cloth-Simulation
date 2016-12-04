@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1480881733 source:u:\graphics2016\mahintorabiconradclothsimulation\main.cpp
+1480884710 source:u:\graphics2016\mahintorabiconradclothsimulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -8,6 +8,7 @@
 	<GL/glext.h>
 	<iostream>
 	"shader.h"
+	<cmath>
 
 1467824614 c:\mingw\include\gl\glew.h
 	<stddef.h>
@@ -284,4 +285,17 @@
 1480877133 u:\graphics\opengl-cloth-simulation\shader.h
 
 1480878278 u:\graphics2016\mahintorabiconradclothsimulation\shader.h
+
+1480878278 source:u:\graphics2016\mahintorabiconradclothsimulation\shader.cpp
+	<cstdlib>
+	<iostream>
+	<fstream>
+	<cstring>
+	"shader.h"
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
 
