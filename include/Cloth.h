@@ -12,6 +12,7 @@
 #endif
 #include<glm/glm.hpp>
 #include<Entity.h>
+#include<vector>
 
 
 static const int VERTEX_ATTRIBUTE_COUNT = 7;
@@ -39,13 +40,13 @@ class Cloth
         int sliceX;
         int sliceY;
         glm::vec3 position;
-        GLuint* indicies;
+        std::vector<GLuint> *indices;
         GLfloat* vertices;
 
         void initCloth();
         int byteSizeOfVertexArray();
         GLfloat* createVertices(glm::vec3 position, int slicesX, int slicesY);
-        GLuint* createIndices(int slicesX, int slicesY);
+        std::vector<GLuint>* createIndices(int slicesX, int slicesY);
 
 };
 

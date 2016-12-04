@@ -1,6 +1,7 @@
 #include "Cloth.h"
 
 
+
 Cloth::Cloth(glm::vec3& position, GLfloat width,GLfloat height,int sliceX,int sliceY)
 {
     this->sliceX = sliceX;
@@ -8,12 +9,13 @@ Cloth::Cloth(glm::vec3& position, GLfloat width,GLfloat height,int sliceX,int sl
     this->height = height;
     this->width = width;
     this->position = position;
+    this->indices = new std::vector<GLuint>;
 }
 
 Cloth::~Cloth()
 {
     delete this->vertices;
-    delete this->indicies;
+    delete this->indices;
 }
 
 void Cloth::draw(float delta){
@@ -52,20 +54,18 @@ GLfloat* Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
     return vertices;
 }
 
-GLuint* Cloth::createIndices(int slicesX, int slicesY) {
-    GLuint* indices = new GLuint[slicesX * slicesY];
-    int k = 0;
+std::vector<GLuint>* Cloth::createIndices(int slicesX, int slicesY) {
     for (int x = 0; x < slicesX-1; x++) {
         for (int y = 0; y < slicesY-1; y++) {
             //left triangle
-            indices[k] = x*slicesY + y; k++;
-            indices[k] = (x+1)*slicesY + y; k++;
-            indices[k] = x*slicesY + (y+1); k++;
+            indices->push_back(x*slicesY + y);
+            indices->push_back((x+1)*slicesY + y);
+            indices->push_back(x*slicesY + (y+1));
 
             //Right triangle
-            indices[k] = x*slicesY + (y+1); k++;
-            indices[k] = (x+1)*slicesY + (y+1); k++;
-            indices[k] = (x+1)*slicesY + y; k++;
+            indices->push_back(x*slicesY + (y+1));
+            indices->push_back((x+1)*slicesY + (y+1));
+            indices->push_back((x+1)*slicesY + y);
         }
     }
     return indices;
@@ -79,7 +79,7 @@ void Cloth::initCloth(){
     int byteSizeArray = byteSizeOfVertexArray();
     GLfloat* vertexArrayData = Cloth::createVertices(position, sliceX, sliceY);
     this->vertices = Cloth::createVertices(this->position, this->sliceX, this->sliceY);
-    this->indicies = Cloth::createIndices(this->sliceX, this->sliceY);
+    this->indices = Cloth::createIndices(this->sliceX, this->sliceY);
 
     glBindVertexArray(vaoID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
