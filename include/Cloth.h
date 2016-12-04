@@ -36,8 +36,7 @@ class Cloth
         void initCloth();
         int byteSizeOfVertexArray();
         GLfloat* createVertices(glm::vec3 position, int slicesX, int slicesY);
-
-
+        GLuint* createIndices(int slicesX, int slicesY);
 
 };
 

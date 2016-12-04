@@ -47,13 +47,13 @@ Cloth::~Cloth()
     //dtor
 }
 
-GL_FLOAT* Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
-    GL_FLOAT vertices[100]; //TODO ChANGE ME
+GLfloat* Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
+    GLfloat vertices[Cloth::byteSizeOfVertexArray()]; //TODO ChANGE ME
     float SQUARE_SIZE = 1.0;
 
     int k = 0;
-    for (int x = 0; x <= slicesX; x++) {
-        for (int y = 0; y <= slicesY; y++) {
+    for (int x = 0; x < slicesX; x++) {
+        for (int y = 0; y  slicesY; y++) {
 
             // position
             vertices[k] = topLeft.x + x*SQUARE_SIZE; k++; //x
@@ -68,7 +68,27 @@ GL_FLOAT* Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
         }
     }
 
-    return GL_FLOAT;
+    return vertices;
 }
+
+GLuint** createIndices(int slicesX, int slicesY) {
+    GLuint indices[slicesX * slicesY];
+    int k = 0;
+    for (int x = 0; x < slicesX-1; x++;) {
+        for (int y = 0; y < slicesY-1; y++) {
+            //left triangle
+            indices[k] = x*slicesY + y; k++;
+            indices[k] = (x+1)*slicesY + y; k++;
+            indices[k] = x*slicesY + (y+1); k++;
+
+            //Right triangle
+            indices[k] = x*slicesY + (y+1); k++;
+            indices[k] = (x+1)*slicesY + (y+1); k++;
+            indices[k] = (x+1)*slicesY + y; k++;
+        }
+    }
+    return indices;
+}
+
 
 
