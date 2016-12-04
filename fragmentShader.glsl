@@ -1,10 +1,9 @@
-#version 430 core
 
-in vec4 colorsExport;
+#version 330 core
 
-out vec4 colorsOut;
+out vec4 color;
 
-void main(void)
+void main()
 {
-   colorsOut = colorsExport;
+    color = vec4(1.0f, 0.5f, 0.2f, 1.0f);
 }

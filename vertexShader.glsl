@@ -1,15 +1,8 @@
-#version 430 core
+#version 330 core
 
-layout(location=0) in vec4 squareCoords;
-layout(location=1) in vec4 squareColors;
+layout (location = 0) in vec3 position;
 
-uniform mat4 projMat;
-uniform mat4 modelViewMat;
-
-out vec4 colorsExport;
-
-void main(void)
+void main()
 {
-   gl_Position = projMat * modelViewMat * squareCoords;
-   colorsExport = squareColors;
+    gl_Position = vec4(position.x, position.y, position.z, 1.0);
 }

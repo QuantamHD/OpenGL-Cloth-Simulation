@@ -14,6 +14,13 @@
 
 double delta = 0;
 long currentTime = 0;
+GLuint VBO, VAO;
+
+GLfloat vertices[] = {
+    -0.5f, -0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+     0.0f,  0.5f, 0.0f
+};
 
 void calculateDeltaTime(){
     long newTime = glutGet(GLUT_ELAPSED_TIME);
@@ -31,7 +38,7 @@ void animate(int value){
     glutTimerFunc(8,animate, 0);
 }
 
-void setupShaders() {
+GLuint setupShaders() {
     GLuint vertexShader = setShader("vertex", "vertexShader.glsl");
     GLuint fragmentShader = setShader("fragment", "fragmentShader.glsl");
     GLuint programId = glCreateProgram();
@@ -41,11 +48,30 @@ void setupShaders() {
     glUseProgram(programId);
 }
 
+void drawTriangle() {
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glBindVertexArray(0);
+}
+
 void init(){
     glEnable(GL_DEPTH_TEST);
     currentTime = glutGet(GLUT_ELAPSED_TIME);
 
     setupShaders();
+
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
 
 void resizeViewport(int width, int height){
@@ -56,6 +82,8 @@ void display(){
     glClearColor(0.5019, 0.8, 0.8,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     calculateDeltaTime();
+
+    drawTriangle();
 
     glutSwapBuffers();
 }
@@ -69,6 +97,7 @@ int main(int argc, char **argv){
     glutInitWindowSize(720,720);
     glutCreateWindow( "Cloth Simulation" );
 
+    glewExperimental = GL_TRUE;
     glewInit();
     init();
 
