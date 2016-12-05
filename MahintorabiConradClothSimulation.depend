@@ -263,7 +263,7 @@
 1301111165 c:\mingw\include\gl\glext.h
 	<windows.h>
 
-1480901946 source:u:\graphics\opengl-cloth-simulation\main.cpp
+1480908685 source:u:\graphics\opengl-cloth-simulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -277,6 +277,7 @@
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
+	<vertex.h>
 
 1480877574 source:u:\graphics\opengl-cloth-simulation\shader.cpp
 	<cstdlib>
@@ -768,11 +769,11 @@
 
 1480888838 u:\graphics2016\mahintorabiconradclothsimulation\include\entity.h
 
-1480901118 source:u:\graphics\opengl-cloth-simulation\src\cloth.cpp
+1480909508 source:u:\graphics\opengl-cloth-simulation\src\cloth.cpp
 	"Cloth.h"
 	<iostream>
 
-1480900484 u:\graphics\opengl-cloth-simulation\include\cloth.h
+1480909462 u:\graphics\opengl-cloth-simulation\include\cloth.h
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -1343,4 +1344,6 @@
 	<cstring>
 
 1480907046 u:\graphics2016\mahintorabiconradclothsimulation\include\vertex.h
+
+1480908603 u:\graphics\opengl-cloth-simulation\include\vertex.h
 
