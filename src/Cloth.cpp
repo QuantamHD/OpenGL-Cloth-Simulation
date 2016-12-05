@@ -85,10 +85,24 @@ GLfloat* Cloth::createIndices(int slicesX, int slicesY) {
 }
 
 void Cloth::initCloth(){
+
     glGenVertexArrays(1, &vaoID);
     glGenBuffers(1, &positionID);
     glGenBuffers(1, &normalID);
     glGenBuffers(1, &eboID);
+
+    glBindVertexArray(vaoID);
+    glBindBuffer(GL_ARRAY_BUFFER, positionID);
+    glBufferData(GL_ARRAY_BUFFER,positionSize, positionCoords, GL_STREAM_DRAW);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(0));
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, normalID);
+    glBufferData(GL_ARRAY_BUFFER,normalSize, normalCoords, GL_STREAM_DRAW);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(0));
+    glEnableVertexAttribArray(1);
+
+
 
 
 
