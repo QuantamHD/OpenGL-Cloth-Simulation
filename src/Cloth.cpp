@@ -31,7 +31,7 @@ void Cloth::rebind() {
 
 void Cloth::calculateNormals(){
     for(int i = 0; i < normalsSize; i++){
-        normalsCords[i] = 0.0f;
+        normalsCords[i] = 1.0f;
     }
 
     for(int i = 0; i < indicesSize; i+= 3){
@@ -82,7 +82,7 @@ void Cloth::update(float delta) {
         float y = this->masses[i]->position.y;
         float z = this->masses[i]->position.z;
         this->masses[i]->addForce(glm::vec3(0, -10.4, 0));
-        this->masses[i]->addForce(glm::vec3(sin(x*y*t),cos(z*t), sin(cos(5*x*y*z)))*10.8f);
+        this->masses[i]->addForce(glm::vec3(sin(x*y*t),cos(z*t), sin(cos(5*x*y*z)))*4.8f);
         this->masses[i]->calculateNewPosition();
         this->positionCords[k++] = this->masses[i]->position.x;
         this->positionCords[k++] = this->masses[i]->position.y;
