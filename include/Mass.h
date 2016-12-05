@@ -18,11 +18,11 @@ class Mass
         void addPosition(glm::vec3 positionDelta);
         void calculateNewPosition();
         void constraintSolve();
+        glm::vec3 position;
     protected:
 
     private:
         std::vector<Spring> springs;
-        glm::vec3 position;
         glm::vec3 previousPosition;
         glm::vec3 acceleration;
         bool movable;
