@@ -31,15 +31,12 @@ GLfloat normals[] = {
     0,0,1
 };
 
-Cloth cloth(glm::vec3(0,0,0), 3,3);
+Cloth cloth(glm::vec3(0,0,0), 2,2);
 
 double delta = 0;
 long currentTime = 0;
 GLuint VBO, VAO, Vpostion, Vnormal;
 GLuint shaderProgram;
-
-
-
 
 void calculateDeltaTime(){
     long newTime = glutGet(GLUT_ELAPSED_TIME);
@@ -76,25 +73,6 @@ void drawTriangle() {
     cloth.draw(delta);
 }
 
-void genVAOandVBO() {
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &Vpostion);
-    glGenBuffers(1, &Vnormal);
-
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, Vpostion);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(position), position, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(0));
-    glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, Vnormal);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(0));
-    glEnableVertexAttribArray(1);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-}
 
 
 void setupCamera(){
@@ -104,7 +82,7 @@ void setupCamera(){
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
 
     // model view call
-    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 3), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, -4), glm::vec3(0,0,0), glm::vec3(0,1,0));
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
 
@@ -113,7 +91,6 @@ void init(){
     glEnable(GL_DEPTH_TEST);
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     GLuint programId = setupShaders();
-    genVAOandVBO();
     cloth.initCloth();
     setupCamera();
 }
