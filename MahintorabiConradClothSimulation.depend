@@ -260,7 +260,7 @@
 1301111165 c:\mingw\include\gl\glext.h
 	<windows.h>
 
-1480884314 source:u:\graphics\opengl-cloth-simulation\main.cpp
+1480896700 source:u:\graphics\opengl-cloth-simulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -270,6 +270,8 @@
 	<iostream>
 	"shader.h"
 	<cmath>
+	<Cloth.h>
+	<glm/glm.hpp>
 
 1480877574 source:u:\graphics\opengl-cloth-simulation\shader.cpp
 	<cstdlib>
@@ -761,10 +763,11 @@
 
 1480888838 u:\graphics2016\mahintorabiconradclothsimulation\include\entity.h
 
-1480891056 source:u:\graphics\opengl-cloth-simulation\src\cloth.cpp
+1480897321 source:u:\graphics\opengl-cloth-simulation\src\cloth.cpp
 	"Cloth.h"
+	<iostream>
 
-1480891047 u:\graphics\opengl-cloth-simulation\include\cloth.h
+1480898084 u:\graphics\opengl-cloth-simulation\include\cloth.h
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>

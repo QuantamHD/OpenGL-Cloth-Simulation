@@ -36,12 +36,14 @@ class Cloth
         int sliceX;
         int sliceY;
         glm::vec3 position;
-        std::vector<GLuint> *indices;
+        int indicesSize;
+        GLfloat* indices;
         GLfloat* vertices;
+        int sizeOfIndices();
 
         int byteSizeOfVertexArray();
         GLfloat* createVertices(glm::vec3 position, int slicesX, int slicesY);
-        std::vector<GLuint>* createIndices(int slicesX, int slicesY);
+        GLfloat* createIndices(int slicesX, int slicesY);
 
 };
 
