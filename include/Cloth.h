@@ -23,7 +23,6 @@ class Cloth
               int sliceX,
               int sliceY);
         virtual ~Cloth();
-        GLuint GetvboID() { return vboID; }
         GLuint GetvaoID() { return vaoID; }
         void draw(float delta);
         void initCloth();
@@ -34,6 +33,8 @@ class Cloth
         int sliceX;
         int sliceY;
         int indicesSize;
+        int positionSize;
+        int normalsSize;
 
         GLuint positionID;
         GLuint normalID;
@@ -42,8 +43,8 @@ class Cloth
 
 
         GLfloat* indices;
-        GLfloat* position;
-        GLfloat* normals;
+        GLfloat* positionCords;
+        GLfloat* normalsCords;
 
         glm::vec3 position;
 

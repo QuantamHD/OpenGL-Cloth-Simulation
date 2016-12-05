@@ -13,7 +13,8 @@ Cloth::Cloth(glm::vec3 position,int sliceX,int sliceY)
 
 Cloth::~Cloth()
 {
-    delete this->vertices;
+    delete this->positionCords;
+    delete this->normalsCords;
     delete this->indices;
 }
 
@@ -24,13 +25,6 @@ void Cloth::draw(float delta){
     glDrawElements(GL_TRIANGLES, this->indicesSize, GL_UNSIGNED_INT, (void*)0);
     glBindVertexArray(0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
-
-
-void Cloth::printVertices() {
-    for (int i = 0; i < 7; i++) {
-        std::cout << this->vertices[i] << "\n";
-    }
 }
 
 int Cloth::byteSizeOfVertexArray(){
@@ -44,21 +38,25 @@ GLfloat* Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
     float SQUARE_SIZE = 1.0;
 
     int k = 0;
+    int n = 0;
     for (int x = 0; x < slicesX; x++) {
         for (int y = 0; y < slicesY; y++) {
 
             // position
-            vertices[k] = topLeft.x + x*SQUARE_SIZE; k++; //x
-            vertices[k] = topLeft.y - y*SQUARE_SIZE; k++; //y
-            vertices[k] = topLeft.z; k++; //z
-            vertices[k] = 1.0; k++; //w
+            positionCords[k] = topLeft.x + x*SQUARE_SIZE; k++; //x
+            positionCords[k] = topLeft.y - y*SQUARE_SIZE; k++; //y
+            positionCords[k] = topLeft.z; k++; //z
+            positionCords[k] = 1.0; k++; //w
 
             // normals
-            vertices[k] = 0.0; k++; //x
-            vertices[k] = 0.0; k++; //y
-            vertices[k] = 1.0; k++; //z
+            normalsCords[n] = 0.0; n++; //x
+            normalsCords[n] = 0.0; n++; //y
+            normalsCords[n] = 1.0; n++; //z
         }
     }
+
+    this->positionSize = k;
+    this->normalsSize = n;
 
     return vertices;
 }
