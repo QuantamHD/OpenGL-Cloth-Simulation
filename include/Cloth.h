@@ -48,8 +48,8 @@ class Cloth
         GLuint* indices;
         GLfloat* positionCords;
         GLfloat* normalsCords;
-        GLfloat* normalCoords2;
 
+        void calculateNormals();
         void rebind();
 
         glm::vec3 position;
