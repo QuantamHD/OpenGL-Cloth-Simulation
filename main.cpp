@@ -94,7 +94,7 @@ void setupCamera(){
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
 
     // model view call
-    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 0, -5), glm::vec3(0,0,0), glm::vec3(0,1,0));
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
 
