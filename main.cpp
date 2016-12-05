@@ -14,12 +14,15 @@
 #include<cmath>
 #include<Cloth.h>
 #include<glm/glm.hpp>
+#include<glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 double delta = 0;
 long currentTime = 0;
 GLuint VBO, VAO;
 GLuint shaderProgram;
 Cloth cloth(glm::vec3(0,0,0),50,50);
+
 
 
 GLfloat vertices[] = {
@@ -41,6 +44,7 @@ void rebind_vertices() {
 
 void update(){
     //std::cout << "Time per frame in seconds " << delta << std::endl;
+
 }
 
 void animate(int value){
@@ -88,7 +92,19 @@ void init(){
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     GLuint programId = setupShaders();
     genVAOandVBO();
+
+    // Frustum call
+    glm::mat4 projMat = glm::frustum(-5.0, 5.0, -5.0, 5.0, 5.0, 100.0);
+    GLint projectionLocation = glGetUniformLocation(shaderProgram, "projectionMatrix");
+    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
+
+    // model view call
+    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 30), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
+
     cloth.initCloth();
+
 }
 
 void resizeViewport(int width, int height){
@@ -100,7 +116,7 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     calculateDeltaTime();
 
-    drawTriangle();
+    cloth.draw(delta);
 
     glutSwapBuffers();
 }

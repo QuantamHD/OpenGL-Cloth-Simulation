@@ -1,12 +1,12 @@
 #version 330 core
 
 layout (location = 0) in vec4 position;
-//layout (location = 1) in vec3 normals;
+layout (location = 1) in vec3 normals;
 
-//uniform modelViewMatrix;
-//uniform projectionMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
 
 void main()
 {
-    gl_Position =  position;
+    gl_Position =  projectionMatrix * modelViewMatrix * position;
 }

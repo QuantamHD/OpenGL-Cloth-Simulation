@@ -260,7 +260,7 @@
 1301111165 c:\mingw\include\gl\glext.h
 	<windows.h>
 
-1480896700 source:u:\graphics\opengl-cloth-simulation\main.cpp
+1480899703 source:u:\graphics\opengl-cloth-simulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -272,6 +272,8 @@
 	<cmath>
 	<Cloth.h>
 	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
 
 1480877574 source:u:\graphics\opengl-cloth-simulation\shader.cpp
 	<cstdlib>
@@ -763,7 +765,7 @@
 
 1480888838 u:\graphics2016\mahintorabiconradclothsimulation\include\entity.h
 
-1480897321 source:u:\graphics\opengl-cloth-simulation\src\cloth.cpp
+1480898215 source:u:\graphics\opengl-cloth-simulation\src\cloth.cpp
 	"Cloth.h"
 	<iostream>
 
@@ -1222,4 +1224,61 @@
 1473918304 u:\graphics\glm\glm\simd\integer.h
 
 1480889907 u:\graphics\opengl-cloth-simulation\include\entity.h
+
+1473918302 u:\graphics\glm\glm\gtc\matrix_transform.hpp
+	"../mat4x4.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../gtc/constants.hpp"
+	"matrix_transform.inl"
+
+1473918302 u:\graphics\glm\glm\gtc\constants.hpp
+	"../detail/setup.hpp"
+	"constants.inl"
+
+1473918302 u:\graphics\glm\glm\gtc\constants.inl
+	<limits>
+
+1473918302 u:\graphics\glm\glm\gtc\matrix_transform.inl
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"../matrix.hpp"
+
+1473918302 u:\graphics\glm\glm\gtc\type_ptr.hpp
+	"../gtc/quaternion.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../mat2x2.hpp"
+	"../mat2x3.hpp"
+	"../mat2x4.hpp"
+	"../mat3x2.hpp"
+	"../mat3x3.hpp"
+	"../mat3x4.hpp"
+	"../mat4x2.hpp"
+	"../mat4x3.hpp"
+	"../mat4x4.hpp"
+	<cstring>
+	"type_ptr.inl"
+
+1473918302 u:\graphics\glm\glm\gtc\quaternion.hpp
+	"../mat3x3.hpp"
+	"../mat4x4.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../gtc/constants.hpp"
+	"quaternion.inl"
+
+1473918302 u:\graphics\glm\glm\gtc\quaternion.inl
+	"../trigonometric.hpp"
+	"../geometric.hpp"
+	"../exponential.hpp"
+	<limits>
+	"quaternion_simd.inl"
+
+1473918302 u:\graphics\glm\glm\gtc\quaternion_simd.inl
+
+1473918302 u:\graphics\glm\glm\gtc\type_ptr.inl
+	<cstring>
 
