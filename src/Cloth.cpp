@@ -58,13 +58,9 @@ int Cloth::byteSizeOfVertexArray(){
     return 2;
 }
 
-void Cloth::generateNormals(){
-    for
-}
 
 void Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
     this->normalsCords = new GLfloat[slicesX * slicesY * 3];
-    this->normalsCords2 = new GLfloat[slicesX * slicesY * 3];
     this->positionCords = new GLfloat[slicesX * slicesY * 4];
 
     float SQUARE_SIZE = 1.0;
