@@ -1,9 +1,10 @@
 #include "Spring.h"
 
-Spring::Spring(Mass* fixedMass, Mass* dynamicMass, float restLength)
+Spring::Spring(Mass* fixedMass, Mass* dynamicMass)
 {
     this->fixedMass = fixedMass;
     this->dynamicMass = dynamicMass;
+    this->restLength = glm::distance(fixedMass->position, dynamicMass->position);
 }
 
 Spring::~Spring()

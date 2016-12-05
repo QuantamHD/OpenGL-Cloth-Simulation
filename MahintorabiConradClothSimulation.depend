@@ -263,7 +263,7 @@
 1301111165 c:\mingw\include\gl\glext.h
 	<windows.h>
 
-1480967753 source:u:\graphics\opengl-cloth-simulation\main.cpp
+1480970947 source:u:\graphics\opengl-cloth-simulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -771,12 +771,13 @@
 
 1480888838 u:\graphics2016\mahintorabiconradclothsimulation\include\entity.h
 
-1480967430 source:u:\graphics\opengl-cloth-simulation\src\cloth.cpp
+1480971720 source:u:\graphics\opengl-cloth-simulation\src\cloth.cpp
 	"Cloth.h"
 	<glm/gtc/type_ptr.hpp>
 	<iostream>
+	"Mass.h"
 
-1480967430 u:\graphics\opengl-cloth-simulation\include\cloth.h
+1480971486 u:\graphics\opengl-cloth-simulation\include\cloth.h
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -1378,12 +1379,12 @@
 1480934753 source:u:\graphics2016\mahintorabiconradclothsimulation\src\spring.cpp
 	"Spring.h"
 
-1480967615 u:\graphics\opengl-cloth-simulation\include\mass.h
+1480971246 u:\graphics\opengl-cloth-simulation\include\mass.h
 	<vector>
 	<Spring.h>
 	<glm/glm.hpp>
 
-1480967430 u:\graphics\opengl-cloth-simulation\include\spring.h
+1480970634 u:\graphics\opengl-cloth-simulation\include\spring.h
 	<Mass.h>
 	<glm/glm.hpp>
 
@@ -1399,9 +1400,9 @@
 	<GL/glext.h>
 	<glm/glm.hpp>
 
-1480967430 source:u:\graphics\opengl-cloth-simulation\src\mass.cpp
+1480971951 source:u:\graphics\opengl-cloth-simulation\src\mass.cpp
 	"Mass.h"
 
-1480967430 source:u:\graphics\opengl-cloth-simulation\src\spring.cpp
+1480970877 source:u:\graphics\opengl-cloth-simulation\src\spring.cpp
 	"Spring.h"
 

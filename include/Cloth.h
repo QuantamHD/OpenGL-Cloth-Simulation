@@ -29,6 +29,7 @@ class Cloth
         void draw(float delta);
         void initCloth();
         void printVertices();
+        void update(float delta);
     protected:
 
     private:
@@ -43,10 +44,11 @@ class Cloth
         GLuint eboID;
         GLuint vaoID;
 
-
         GLuint* indices;
         GLfloat* positionCords;
         GLfloat* normalsCords;
+
+        void rebind();
 
         glm::vec3 position;
 
@@ -57,6 +59,10 @@ class Cloth
 
         void createVertices(glm::vec3 position, int slicesX, int slicesY);
         void createIndices(int slicesX, int slicesY);
+
+        void fillMasses();
+        void attachSprings(int sliceX, int sliceY);
+        void stickTop(int sliceX, int sliceY);
 
 };
 

@@ -34,7 +34,7 @@ void calculateDeltaTime(){
 
 void update(){
     //std::cout << "Time per frame in seconds " << delta << std::endl;
-
+    cloth.update(delta);
 }
 
 void animate(int value){

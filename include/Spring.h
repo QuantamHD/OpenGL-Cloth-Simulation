@@ -11,7 +11,7 @@ const float REST_LENGTH = 0.5;
 class Spring
 {
     public:
-        Spring(Mass* fixedMass, Mass* dynamicMass, float restLength);
+        Spring(Mass* fixedMass, Mass* dynamicMass);
         virtual ~Spring();
         void satisfyConstraint();
 
