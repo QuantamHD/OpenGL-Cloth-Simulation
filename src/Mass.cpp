@@ -1,4 +1,5 @@
 #include "Mass.h"
+#include<iostream>
 
 Mass::Mass(glm::vec3 position, bool movable)
 {
