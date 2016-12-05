@@ -42,7 +42,7 @@ class Cloth
         GLuint vaoID;
 
 
-        GLfloat* indices;
+        GLuint* indices;
         GLfloat* positionCords;
         GLfloat* normalsCords;
 

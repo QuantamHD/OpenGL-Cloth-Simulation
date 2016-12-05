@@ -31,15 +31,12 @@ GLfloat normals[] = {
     0,0,1
 };
 
-Cloth cloth(glm::vec3(0,0,0), 3,3);
+Cloth cloth(glm::vec3(0,0,0), 2,2);
 
 double delta = 0;
 long currentTime = 0;
 GLuint VBO, VAO, Vpostion, Vnormal;
 GLuint shaderProgram;
-
-
-
 
 void calculateDeltaTime(){
     long newTime = glutGet(GLUT_ELAPSED_TIME);
@@ -67,13 +64,6 @@ GLuint setupShaders() {
     glLinkProgram(programId);
     glUseProgram(programId);
     shaderProgram = programId;
-}
-
-void drawTriangle() {
-    //glBindVertexArray(VAO);
-    //glDrawArrays(GL_TRIANGLES, 0, 3);
-    //glBindVertexArray(0);
-    cloth.draw(delta);
 }
 
 void genVAOandVBO() {
@@ -104,7 +94,7 @@ void setupCamera(){
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
 
     // model view call
-    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 3), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0,0,0), glm::vec3(0,1,0));
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
 
@@ -113,9 +103,10 @@ void init(){
     glEnable(GL_DEPTH_TEST);
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     GLuint programId = setupShaders();
-    genVAOandVBO();
-    cloth.initCloth();
+    glCullFace(GL_FRONT_AND_BACK);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     setupCamera();
+    cloth.initCloth();
 }
 
 
@@ -128,8 +119,9 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     calculateDeltaTime();
 
-    drawTriangle();
-    //cloth.draw(delta);
+    //drawTriangle();
+    glUseProgram(shaderProgram);
+    cloth.draw(delta);
 
     glutSwapBuffers();
 }
@@ -137,7 +129,7 @@ void display(){
 int main(int argc, char **argv){
     glutInit(&argc, argv);
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
-    glutInitContextVersion( 4, 0 );
+    glutInitContextVersion( 3, 2 );
     glutInitContextProfile( GLUT_CORE_PROFILE );
 
     glutInitWindowSize(720,720);

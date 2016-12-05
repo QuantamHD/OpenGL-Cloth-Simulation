@@ -1,4 +1,5 @@
 #include "Cloth.h"
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
 
@@ -12,18 +13,12 @@ Cloth::Cloth(glm::vec3 position,int sliceX,int sliceY)
 
 Cloth::~Cloth()
 {
-    delete this->positionCords;
-    delete this->normalsCords;
-    delete this->indices;
 }
 
 void Cloth::draw(float delta){
 
     glBindVertexArray(vaoID);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-    //glDrawElements(GL_TRIANGLES, this->indicesSize, GL_UNSIGNED_INT, (void*)0);
-    glDrawArrays(GL_POLYGON, 0, this->normalsSize);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glDrawElements(GL_TRIANGLES, this->indicesSize, GL_UNSIGNED_INT, (void*)0);
     glBindVertexArray(0);
 
 }
@@ -63,7 +58,7 @@ void Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
 
 void Cloth::createIndices(int slicesX, int slicesY) {
     this->indicesSize = ((sliceX-1)*(sliceY-1))*6;
-    this->indices = new GLfloat[this->indicesSize];
+    this->indices = new GLuint[this->indicesSize];
 
     int k = 0;
     for (int x = 0; x < slicesX-1; x++) {
@@ -91,22 +86,34 @@ void Cloth::initCloth(){
     glBindVertexArray(vaoID);
 
     Cloth::createVertices(position, sliceX, sliceY);
+    Cloth::createIndices(sliceX, sliceY);
+
     for(int i = 0; i < positionSize; i++){
         std::cout << "Vertex" << this->positionCords[i] << std::endl;
     }
-    Cloth::createIndices(sliceX, sliceY);
+    std::cout << "" << std::endl;
+
+    for(int i = 0; i < indicesSize; i++){
+        std::cout << "Indices" << this->indices[i] << std::endl;
+        std::cout << "TEst" << positionSize <<std::endl;
+    }
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indicesSize * sizeof(GLuint), this->indices, GL_STATIC_DRAW);
+
 
     glBindBuffer(GL_ARRAY_BUFFER, positionID);
-    glBufferData(GL_ARRAY_BUFFER,this->positionSize * sizeof(GLfloat), this->positionCords, GL_STREAM_DRAW);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(0));
+    glBufferData(GL_ARRAY_BUFFER,this->positionSize * sizeof(GLfloat), positionCords, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat), 0);
     glEnableVertexAttribArray(0);
 
+
     glBindBuffer(GL_ARRAY_BUFFER, normalID);
-    glBufferData(GL_ARRAY_BUFFER,this->normalsSize * sizeof(GLfloat), this->normalsCords, GL_STREAM_DRAW);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(0));
+    glBufferData(GL_ARRAY_BUFFER,this->normalsSize * sizeof(GLfloat), normalsCords, GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat), 0);
     glEnableVertexAttribArray(1);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ARRAY_BUFFER,0);
     glBindVertexArray(0);
 }
 
