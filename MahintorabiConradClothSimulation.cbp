@@ -45,6 +45,7 @@
 			<Add library="gdi32" />
 			<Add directory="C:/MinGW/lib" />
 		</Linker>
+		<Unit filename="fragmentShader.glsl" />
 		<Unit filename="include/Cloth.h" />
 		<Unit filename="include/ClothSimulation.h" />
 		<Unit filename="include/Entity.h" />
@@ -58,6 +59,7 @@
 		<Unit filename="src/ClothSimulation.cpp" />
 		<Unit filename="src/Mass.cpp" />
 		<Unit filename="src/Spring.cpp" />
+		<Unit filename="vertexShader.glsl" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -72,7 +72,7 @@ void init(){
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     GLuint programId = setupShaders();
     glCullFace(GL_FRONT_AND_BACK);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     setupCamera();
     cloth.initCloth();
 }
