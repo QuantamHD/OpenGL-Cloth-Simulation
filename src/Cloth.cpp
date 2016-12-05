@@ -90,23 +90,20 @@ void Cloth::initCloth(){
     glGenBuffers(1, &eboID);
 
     glBindVertexArray(vaoID);
-
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-
     int byteSizeArray = byteSizeOfVertexArray();
     glBufferData(GL_ARRAY_BUFFER, byteSizeArray, this->vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
-
     this->vertices = Cloth::createVertices(this->position, this->sliceX, this->sliceY);
     this->indices = Cloth::createIndices(this->sliceX, this->sliceY);
 
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indicesSize * sizeof(GLuint), this->indices, GL_STATIC_DRAW); //HEY
 
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, VERTEX_ATTRIBUTE_COUNT * sizeof(GLfloat), (GLvoid*)4);
-    glEnableVertexAttribArray(1);
+
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);

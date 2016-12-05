@@ -16,30 +16,34 @@
 #include<glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include<vertex.h>
+
+
+GLfloat position[] = {
+    -0.5f, -0.5f, 0.0f, 1,
+     0.5f, -0.5f, 0.0f, 1,
+     0.0f,  0.5f, 0.0f, 1
+};
+
+GLfloat normals[] = {
+    0,0,1,
+    0,0,1,
+    0,0,1
+};
 
 double delta = 0;
 long currentTime = 0;
-GLuint VBO, VAO;
+GLuint VBO, VAO, Vpostion, Vnormal;
 GLuint shaderProgram;
 Cloth cloth(glm::vec3(-1.0f,1.0f,0.0f),3,3);
 
 
 
-GLfloat vertices[] = {
-    -0.5f, -0.5f, 0.0f, 1, 0, 0, 1,
-     0.5f, -0.5f, 0.0f, 1, 0, 0, 1,
-     0.0f,  0.5f, 0.0f, 1, 0, 0, 1
-};
 
 void calculateDeltaTime(){
     long newTime = glutGet(GLUT_ELAPSED_TIME);
     delta = (newTime - currentTime)/1000.0;
     currentTime = newTime;
-}
-
-void rebind_vertices() {
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 }
 
 void update(){
@@ -49,7 +53,6 @@ void update(){
 
 void animate(int value){
     update();
-    rebind_vertices();
     glutPostRedisplay();
     glutTimerFunc(8,animate, 0);
 }
@@ -66,7 +69,6 @@ GLuint setupShaders() {
 }
 
 void drawTriangle() {
-
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindVertexArray(0);
@@ -74,31 +76,27 @@ void drawTriangle() {
 
 void genVAOandVBO() {
     glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &Vpostion);
+    glGenBuffers(1, &Vnormal);
 
     glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)0);
+    glBindBuffer(GL_ARRAY_BUFFER, Vpostion);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(position), position, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(0));
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)4);
+    glBindBuffer(GL_ARRAY_BUFFER, Vnormal);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(0));
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
-void init(){
-    glEnable(GL_DEPTH_TEST);
-    currentTime = glutGet(GLUT_ELAPSED_TIME);
-    GLuint programId = setupShaders();
-    //genVAOandVBO();
 
-    cloth.initCloth();
-
-    // Frustum call
+void setupCamera(){
+        // Frustum call
     glm::mat4 projMat = glm::frustum(-5.0, 5.0, -5.0, 5.0, 5.0, 100.0);
     GLint projectionLocation = glGetUniformLocation(shaderProgram, "projectionMatrix");
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
@@ -108,8 +106,15 @@ void init(){
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
 
-    cloth.printVertices();
 }
+void init(){
+    glEnable(GL_DEPTH_TEST);
+    currentTime = glutGet(GLUT_ELAPSED_TIME);
+    GLuint programId = setupShaders();
+    genVAOandVBO();
+    setupCamera();
+}
+
 
 void resizeViewport(int width, int height){
     glViewport(0,0,width, height);
@@ -120,8 +125,8 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     calculateDeltaTime();
 
-    //drawTriangle();
-    cloth.draw(delta);
+    drawTriangle();
+    //cloth.draw(delta);
 
     glutSwapBuffers();
 }

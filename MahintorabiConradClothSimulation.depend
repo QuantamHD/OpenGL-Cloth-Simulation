@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1480894984 source:u:\graphics2016\mahintorabiconradclothsimulation\main.cpp
+1480908116 source:u:\graphics2016\mahintorabiconradclothsimulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -11,6 +11,9 @@
 	<cmath>
 	<Cloth.h>
 	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<vertex.h>
 
 1467824614 c:\mingw\include\gl\glew.h
 	<stddef.h>
@@ -305,11 +308,11 @@
 	<GL/freeglut.h>
 	<GL/glext.h>
 
-1480895220 source:u:\graphics2016\mahintorabiconradclothsimulation\src\cloth.cpp
+1480902401 source:u:\graphics2016\mahintorabiconradclothsimulation\src\cloth.cpp
 	"Cloth.h"
 	<iostream>
 
-1480893677 u:\graphics2016\mahintorabiconradclothsimulation\include\cloth.h
+1480902231 u:\graphics2016\mahintorabiconradclothsimulation\include\cloth.h
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -1281,4 +1284,63 @@
 
 1473918302 u:\graphics\glm\glm\gtc\type_ptr.inl
 	<cstring>
+
+1473918302 u:\graphics2016\glm\glm\gtc\matrix_transform.hpp
+	"../mat4x4.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../gtc/constants.hpp"
+	"matrix_transform.inl"
+
+1473918302 u:\graphics2016\glm\glm\gtc\constants.hpp
+	"../detail/setup.hpp"
+	"constants.inl"
+
+1473918302 u:\graphics2016\glm\glm\gtc\constants.inl
+	<limits>
+
+1473918302 u:\graphics2016\glm\glm\gtc\matrix_transform.inl
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"../matrix.hpp"
+
+1473918302 u:\graphics2016\glm\glm\gtc\type_ptr.hpp
+	"../gtc/quaternion.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../mat2x2.hpp"
+	"../mat2x3.hpp"
+	"../mat2x4.hpp"
+	"../mat3x2.hpp"
+	"../mat3x3.hpp"
+	"../mat3x4.hpp"
+	"../mat4x2.hpp"
+	"../mat4x3.hpp"
+	"../mat4x4.hpp"
+	<cstring>
+	"type_ptr.inl"
+
+1473918302 u:\graphics2016\glm\glm\gtc\quaternion.hpp
+	"../mat3x3.hpp"
+	"../mat4x4.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../gtc/constants.hpp"
+	"quaternion.inl"
+
+1473918302 u:\graphics2016\glm\glm\gtc\quaternion.inl
+	"../trigonometric.hpp"
+	"../geometric.hpp"
+	"../exponential.hpp"
+	<limits>
+	"quaternion_simd.inl"
+
+1473918302 u:\graphics2016\glm\glm\gtc\quaternion_simd.inl
+
+1473918302 u:\graphics2016\glm\glm\gtc\type_ptr.inl
+	<cstring>
+
+1480907046 u:\graphics2016\mahintorabiconradclothsimulation\include\vertex.h
 
