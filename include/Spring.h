@@ -5,7 +5,7 @@
 
 class Mass;
 
-const float SPRING_CONST = 100;
+const float SPRING_CONST = 20;
 const float REST_LENGTH = 0.5;
 
 class Spring

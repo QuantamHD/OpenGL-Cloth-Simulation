@@ -19,7 +19,7 @@
 #include<vertex.h>
 
 
-Cloth cloth(glm::vec3(-5,5.0,0), 10,20);
+Cloth cloth(glm::vec3(-5,5.0,0), 15,20);
 
 double delta = 0;
 long currentTime = 0;

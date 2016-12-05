@@ -10,6 +10,7 @@ Cloth::Cloth(glm::vec3 position,int sliceX,int sliceY)
     this->sliceX = sliceX;
     this->sliceY = sliceY;
     this->position = position;
+    this->t = 0;
 }
 
 Cloth::~Cloth()
@@ -31,15 +32,20 @@ void Cloth::rebind() {
 void Cloth::update(float delta) {
     int k = 0;
     for (int i = 0; i < masses.size(); i++) {
-        this->masses[i]->addForce(glm::vec3(0, -8.4, 0));
+        float x = this->masses[i]->position.x;
+        float y = this->masses[i]->position.y;
+        float z = this->masses[i]->position.z;
+        this->masses[i]->addForce(glm::vec3(0, -10.4, 0));
+        this->masses[i]->addForce(glm::vec3(sin(x*y*t),cos(z*t), sin(cos(5*x*y*z)))*10.8f);
         this->masses[i]->calculateNewPosition();
         this->positionCords[k++] = this->masses[i]->position.x;
         this->positionCords[k++] = this->masses[i]->position.y;
         this->positionCords[k++] = this->masses[i]->position.z;
         k++; //skip w
+        t+= 0.009;
     }
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 16; i++) {
         for (int n = 0; n < masses.size(); n++) {
             this->masses[n]->constraintSolve();
         }
@@ -52,8 +58,13 @@ int Cloth::byteSizeOfVertexArray(){
     return 2;
 }
 
+void Cloth::generateNormals(){
+    for
+}
+
 void Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
     this->normalsCords = new GLfloat[slicesX * slicesY * 3];
+    this->normalsCords2 = new GLfloat[slicesX * slicesY * 3];
     this->positionCords = new GLfloat[slicesX * slicesY * 4];
 
     float SQUARE_SIZE = 1.0;

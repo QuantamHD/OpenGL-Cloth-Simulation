@@ -38,6 +38,7 @@ class Cloth
         int indicesSize;
         int positionSize;
         int normalsSize;
+        float t;
 
         GLuint positionID;
         GLuint normalID;
@@ -47,6 +48,7 @@ class Cloth
         GLuint* indices;
         GLfloat* positionCords;
         GLfloat* normalsCords;
+        GLfloat* normalCoords2;
 
         void rebind();
 
@@ -59,6 +61,7 @@ class Cloth
 
         void createVertices(glm::vec3 position, int slicesX, int slicesY);
         void createIndices(int slicesX, int slicesY);
+        void generateNormals();
 
         void fillMasses();
         void attachSprings(int sliceX, int sliceY);
