@@ -51,8 +51,8 @@ class Cloth
         int sizeOfIndices();
         int byteSizeOfVertexArray();
 
-        GLfloat* createVertices(glm::vec3 position, int slicesX, int slicesY);
-        GLfloat* createIndices(int slicesX, int slicesY);
+        void createVertices(glm::vec3 position, int slicesX, int slicesY);
+        void createIndices(int slicesX, int slicesY);
 
 };
 

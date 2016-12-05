@@ -31,11 +31,12 @@ GLfloat normals[] = {
     0,0,1
 };
 
+Cloth cloth(glm::vec3(0,0,0), 3,3);
+
 double delta = 0;
 long currentTime = 0;
 GLuint VBO, VAO, Vpostion, Vnormal;
 GLuint shaderProgram;
-Cloth cloth(glm::vec3(-1.0f,1.0f,0.0f),3,3);
 
 
 
@@ -69,9 +70,10 @@ GLuint setupShaders() {
 }
 
 void drawTriangle() {
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glBindVertexArray(0);
+    //glBindVertexArray(VAO);
+    //glDrawArrays(GL_TRIANGLES, 0, 3);
+    //glBindVertexArray(0);
+    cloth.draw(delta);
 }
 
 void genVAOandVBO() {
@@ -112,6 +114,7 @@ void init(){
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     GLuint programId = setupShaders();
     genVAOandVBO();
+    cloth.initCloth();
     setupCamera();
 }
 
