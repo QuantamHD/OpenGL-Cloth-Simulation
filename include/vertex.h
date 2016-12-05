@@ -1,7 +1,12 @@
-#ifndef VERTEX_H_INCLUDED
-#define VERTEX_H_INCLUDED
-struct Vertex{
-    GLfloat position[4];
-    GLfloat normal[3];
+#ifndef VERTEX_H
+#define VERTEX_H
+
+#include <glm/glm.hpp>
+
+struct Vertex
+{
+   glm::vec4 coords;
+   glm::vec3 normal;
 };
-#endif // VERTEX_H_INCLUDED
+
+#endif

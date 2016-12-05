@@ -45,12 +45,18 @@
 			<Add library="gdi32" />
 			<Add directory="C:/MinGW/lib" />
 		</Linker>
+		<Unit filename="Vertex.h" />
+		<Unit filename="fragmentShader.glsl" />
 		<Unit filename="include/Cloth.h" />
 		<Unit filename="include/Entity.h" />
+		<Unit filename="include/Vertex.h" />
+		<Unit filename="include/lamp.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="shader.cpp" />
 		<Unit filename="shader.h" />
 		<Unit filename="src/Cloth.cpp" />
+		<Unit filename="src/lamp.cpp" />
+		<Unit filename="vertexShader.glsl" />
 		<Extensions>
 			<code_completion />
 			<envvars />

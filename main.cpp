@@ -46,7 +46,7 @@ void calculateDeltaTime(){
 
 void update(){
     //std::cout << "Time per frame in seconds " << delta << std::endl;
-    cloth.update(glutGet(GLUT_ELAPSED_TIME));
+    //cloth.update(glutGet(GLUT_ELAPSED_TIME));
 }
 
 void animate(int value){
@@ -64,13 +64,6 @@ GLuint setupShaders() {
     glLinkProgram(programId);
     glUseProgram(programId);
     shaderProgram = programId;
-}
-
-void drawTriangle() {
-    //glBindVertexArray(VAO);
-    //glDrawArrays(GL_TRIANGLES, 0, 3);
-    //glBindVertexArray(0);
-    cloth.draw(delta);
 }
 
 
@@ -105,8 +98,7 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     calculateDeltaTime();
 
-    drawTriangle();
-    //cloth.draw(delta);
+    //TODO: Draw something
 
     glutSwapBuffers();
 }
