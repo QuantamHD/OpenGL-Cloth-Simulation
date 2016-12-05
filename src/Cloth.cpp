@@ -19,11 +19,18 @@ Cloth::~Cloth()
 
 void Cloth::draw(float delta){
 
-    glBindVertexArray(vaoID);
+    glBindVertexArray(this->GetvaoID());
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
     glDrawElements(GL_TRIANGLES, this->indicesSize, GL_UNSIGNED_INT, (void*)0);
     glBindVertexArray(0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+
+void Cloth::printVertices() {
+    for (int i = 0; i < 7; i++) {
+        std::cout << this->vertices[i] << "\n";
+    }
 }
 
 int Cloth::byteSizeOfVertexArray(){
@@ -82,24 +89,24 @@ void Cloth::initCloth(){
     glGenBuffers(1, &vboID);
     glGenBuffers(1, &eboID);
 
-
     glBindVertexArray(vaoID);
+
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+
     int byteSizeArray = byteSizeOfVertexArray();
+    glBufferData(GL_ARRAY_BUFFER, byteSizeArray, this->vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+
     this->vertices = Cloth::createVertices(this->position, this->sliceX, this->sliceY);
     this->indices = Cloth::createIndices(this->sliceX, this->sliceY);
-    glBufferData(GL_ARRAY_BUFFER, byteSizeArray, this->vertices, GL_STATIC_DRAW);
-    std::cout << glGetError() << std::endl;
 
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indicesSize * sizeof(GLuint), this->indices, GL_STATIC_DRAW); //HEY
-    std::cout << glGetError() << std::endl;
 
-
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, VERTEX_ATTRIBUTE_COUNT * sizeof(GLfloat), (GLvoid*)4);
-    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);

@@ -21,14 +21,14 @@ double delta = 0;
 long currentTime = 0;
 GLuint VBO, VAO;
 GLuint shaderProgram;
-Cloth cloth(glm::vec3(0,0,0),50,50);
+Cloth cloth(glm::vec3(-1.0f,1.0f,0.0f),3,3);
 
 
 
 GLfloat vertices[] = {
-    -0.5f, -0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-     0.0f,  0.5f, 0.0f
+    -0.5f, -0.5f, 0.0f, 1, 0, 0, 1,
+     0.5f, -0.5f, 0.0f, 1, 0, 0, 1,
+     0.0f,  0.5f, 0.0f, 1, 0, 0, 1
 };
 
 void calculateDeltaTime(){
@@ -80,8 +80,11 @@ void genVAOandVBO() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)4);
+    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -91,7 +94,9 @@ void init(){
     glEnable(GL_DEPTH_TEST);
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     GLuint programId = setupShaders();
-    genVAOandVBO();
+    //genVAOandVBO();
+
+    cloth.initCloth();
 
     // Frustum call
     glm::mat4 projMat = glm::frustum(-5.0, 5.0, -5.0, 5.0, 5.0, 100.0);
@@ -99,12 +104,11 @@ void init(){
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
 
     // model view call
-    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 30), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 3), glm::vec3(0,0,0), glm::vec3(0,1,0));
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
 
-    cloth.initCloth();
-
+    cloth.printVertices();
 }
 
 void resizeViewport(int width, int height){
@@ -116,6 +120,7 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     calculateDeltaTime();
 
+    //drawTriangle();
     cloth.draw(delta);
 
     glutSwapBuffers();

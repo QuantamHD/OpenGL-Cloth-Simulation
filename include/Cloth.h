@@ -27,6 +27,7 @@ class Cloth
         GLuint GetvaoID() { return vaoID; }
         void draw(float delta);
         void initCloth();
+                void printVertices();
     protected:
 
     private:
