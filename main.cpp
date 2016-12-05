@@ -46,7 +46,7 @@ void calculateDeltaTime(){
 
 void update(){
     //std::cout << "Time per frame in seconds " << delta << std::endl;
-
+    cloth.update(glutGet(GLUT_ELAPSED_TIME));
 }
 
 void animate(int value){

@@ -26,6 +26,16 @@ void Cloth::draw(float delta){
 
 }
 
+void Cloth::rebind() {
+    glBindBuffer(GL_ARRAY_BUFFER, this->positionID);
+    glBufferData(GL_ARRAY_BUFFER, this->positionSize * sizeof(GLfloat), positionCords, GL_STATIC_DRAW);
+}
+
+void Cloth::update(long time) {
+    this->positionCords[0] = sin(time / 100);
+    this->rebind();
+}
+
 int Cloth::byteSizeOfVertexArray(){
     int floatSize = sizeof(GLfloat);
     int numberOfVertices = this->sliceX*this->sliceY;
@@ -82,7 +92,7 @@ void Cloth::initCloth(){
 
     glGenVertexArrays(1, &vaoID);
     glGenBuffers(1, &positionID);
-    //glGenBuffers(1, &normalID);
+    glGenBuffers(1, &normalID);
     glGenBuffers(1, &eboID);
 
 
@@ -94,13 +104,6 @@ void Cloth::initCloth(){
     for(int i = 0; i < indicesSize; i++){
         std::cout << "index " << this->indices[i] << std::endl;
     }
-
-    GLfloat vertices[] = {
-     0.5f,  0.5f, 0.0f,  // Top Right
-     0.5f, -0.5f, 0.0f,  // Bottom Right
-    -0.5f, -0.5f, 0.0f,  // Bottom Left
-    -0.5f,  0.5f, 0.0f   // Top Left
-    };
 
 
     glBindVertexArray(vaoID);

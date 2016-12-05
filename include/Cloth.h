@@ -27,6 +27,7 @@ class Cloth
         void draw(float delta);
         void initCloth();
         void printVertices();
+        void update(long time);
     protected:
 
     private:
@@ -50,6 +51,7 @@ class Cloth
 
         int sizeOfIndices();
         int byteSizeOfVertexArray();
+        void rebind();
 
         void createVertices(glm::vec3 position, int slicesX, int slicesY);
         void createIndices(int slicesX, int slicesY);
