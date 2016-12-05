@@ -31,17 +31,17 @@ void Cloth::rebind() {
 void Cloth::update(float delta) {
     int k = 0;
     for (int i = 0; i < masses.size(); i++) {
-        this->masses[i].addForce(glm::vec3(0, -1.8, 0));
-        this->masses[i].calculateNewPosition();
-        this->positionCords[k++] = this->masses[i].position.x;
-        this->positionCords[k++] = this->masses[i].position.y;
-        this->positionCords[k++] = this->masses[i].position.z;
+        this->masses[i]->addForce(glm::vec3(0, -8.4, 0));
+        this->masses[i]->calculateNewPosition();
+        this->positionCords[k++] = this->masses[i]->position.x;
+        this->positionCords[k++] = this->masses[i]->position.y;
+        this->positionCords[k++] = this->masses[i]->position.z;
         k++; //skip w
     }
 
     for (int i = 0; i < 5; i++) {
         for (int n = 0; n < masses.size(); n++) {
-            this->masses[n].constraintSolve();
+            this->masses[n]->constraintSolve();
         }
     }
 
@@ -69,8 +69,6 @@ void Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
             positionCords[k++] = topLeft.y - y*SQUARE_SIZE; //y
             positionCords[k++] = topLeft.z;//z
             positionCords[k++] = 1.0; //w
-
-            this->masses.push_back(Mass(glm::vec3(topLeft.x + x*SQUARE_SIZE, topLeft.y - y*SQUARE_SIZE, topLeft.z), true));
 
             // normals
             normalsCords[n++] = 0.0;//x
@@ -110,7 +108,7 @@ void Cloth::fillMasses() {
         GLfloat y = positionCords[k++];
         GLfloat z = positionCords[k++];
         k++; //skip the w
-        this->masses.push_back(Mass(glm::vec3(x, y, z), true));
+        this->masses.push_back(new Mass(glm::vec3(x, y, z), true));
     }
 }
 
@@ -121,56 +119,56 @@ void Cloth::attachSprings(int slicesX, int slicesY) {
         for (int y = 0; y < slicesY-1; y++) {
 
             // Left
-            Mass m1 = this->masses[(x*slicesY + y)];
-            Mass m2 = this->masses[(x*slicesY + (y+1))];
-            Spring spring0(&m1, &m2);
-            m1.addSpring(spring0);
-            m2.addSpring(spring0);
+            Mass* m1 = this->masses[(x*slicesY + y)];
+            Mass* m2 = this->masses[(x*slicesY + (y+1))];
+            Spring spring0(m1, m2);
+            m1->addSpring(spring0);
+            m2->addSpring(spring0);
 
             // Top
             m1 = this->masses[(x*slicesY + y)];
             m2 = this->masses[((x+1)*slicesY + y)];
-            Spring spring1(&m1, &m2);
-            m1.addSpring(spring1);
-            m2.addSpring(spring1);
+            Spring spring1(m1, m2);
+            m1->addSpring(spring1);
+            m2->addSpring(spring1);
 
             // Diagonal
             m1 = this->masses[(x*slicesY + (y+1))];
             m2 = this->masses[((x+1)*slicesY + y)];
-            Spring spring2(&m1, &m2);
-            m1.addSpring(spring2);
-            m2.addSpring(spring2);
+            Spring spring2(m1, m2);
+            m1->addSpring(spring2);
+            m2->addSpring(spring2);
 
             // Middle Line
             m1 = this->masses[(x*slicesY + y)];
             m2 = this->masses[((x+1)*slicesY + (y+1))];
-            Spring spring3(&m1, &m2);
-            m1.addSpring(spring3);
-            m2.addSpring(spring3);
+            Spring spring3(m1, m2);
+            m1->addSpring(spring3);
+            m2->addSpring(spring3);
 
             // Bottom line
             if (y == slicesY-2) {
                 m1 = this->masses[(x*slicesY + (y+1))];
                 m2 = this->masses[((x+1)*slicesY + (y+1))];
-                Spring spring4(&m1, &m2);
-                m1.addSpring(spring4);
-                m2.addSpring(spring4);
+                Spring spring4(m1, m2);
+                m1->addSpring(spring4);
+                m2->addSpring(spring4);
             }
 
             if (x == slicesX-2) {
-                Mass m1 = this->masses[((x+1)*slicesY + (y))];
-                Mass m2 = this->masses[((x+1)*slicesY + (y+1))];
-                Spring spring5(&m1, &m2);
-                m1.addSpring(spring5);
-                m2.addSpring(spring5);
+                m1 = this->masses[((x+1)*slicesY + (y))];
+                m2 = this->masses[((x+1)*slicesY + (y+1))];
+                Spring spring5(m1, m2);
+                m1->addSpring(spring5);
+                m2->addSpring(spring5);
             }
         }
     }
 }
 
 void Cloth::stickTop(int sliceX, int slicesY) {
-    this->masses[0].movable = false;
-    this->masses[(sliceX-1)*slicesY].movable = false;
+    this->masses[0]->movable = false;
+    this->masses[(sliceX-1)*slicesY]->movable = false;
 }
 
 void Cloth::initCloth(){

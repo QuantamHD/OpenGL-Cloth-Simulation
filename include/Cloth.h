@@ -52,7 +52,7 @@ class Cloth
 
         glm::vec3 position;
 
-        std::vector<Mass> masses;
+        std::vector<Mass*> masses;
 
         int sizeOfIndices();
         int byteSizeOfVertexArray();
