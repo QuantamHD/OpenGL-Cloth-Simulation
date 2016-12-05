@@ -24,18 +24,18 @@ void Cloth::draw(float delta){
 }
 
 int Cloth::byteSizeOfVertexArray(){
-    int floatSize = sizeof(GLfloat);
-    int numberOfVertices = this->sliceX*this->sliceY;
-    int sizeInBytesOfCloth = floatSize*numberOfVertices*VERTEX_ATTRIBUTE_COUNT;
+    return 2;
 }
 
 void Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
     this->normalsCords = new GLfloat[slicesX * slicesY * 3];
     this->positionCords = new GLfloat[slicesX * slicesY * 4];
+
     float SQUARE_SIZE = 1.0;
 
     int k = 0;
     int n = 0;
+    int j = 0;
     for (int x = 0; x < slicesX; x++) {
         for (int y = 0; y < slicesY; y++) {
 
@@ -44,6 +44,8 @@ void Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
             positionCords[k++] = topLeft.y - y*SQUARE_SIZE; //y
             positionCords[k++] = topLeft.z;//z
             positionCords[k++] = 1.0; //w
+
+            this->masses.push_back(Mass(glm::vec3(topLeft.x + x*SQUARE_SIZE, topLeft.y - y*SQUARE_SIZE, topLeft.z), true));
 
             // normals
             normalsCords[n++] = 0.0;//x
@@ -87,16 +89,6 @@ void Cloth::initCloth(){
 
     Cloth::createVertices(position, sliceX, sliceY);
     Cloth::createIndices(sliceX, sliceY);
-
-    for(int i = 0; i < positionSize; i++){
-        std::cout << "Vertex" << this->positionCords[i] << std::endl;
-    }
-    std::cout << "" << std::endl;
-
-    for(int i = 0; i < indicesSize; i++){
-        std::cout << "Indices" << this->indices[i] << std::endl;
-        std::cout << "TEst" << positionSize <<std::endl;
-    }
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize * sizeof(GLuint), indices, GL_STATIC_DRAW);

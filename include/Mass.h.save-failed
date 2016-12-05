@@ -1,0 +1,17 @@
+#ifndef MASS_H
+#define MASS_H
+#include<vector>
+
+class Mass
+{
+    public:
+        Mass();
+        virtual ~Mass();
+
+    protected:
+
+    private:
+
+};
+
+#endif // MASS_H

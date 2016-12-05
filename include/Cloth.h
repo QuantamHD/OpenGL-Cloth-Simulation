@@ -10,9 +10,11 @@
 #  include <GL/glext.h>
 #pragma comment(lib, "glew32.lib")
 #endif
+
 #include<glm/glm.hpp>
 #include<Entity.h>
 #include<vector>
+#include<Mass.h>
 
 
 static const int VERTEX_ATTRIBUTE_COUNT = 7;
@@ -47,6 +49,8 @@ class Cloth
         GLfloat* normalsCords;
 
         glm::vec3 position;
+
+        std::vector<Mass> masses;
 
         int sizeOfIndices();
         int byteSizeOfVertexArray();

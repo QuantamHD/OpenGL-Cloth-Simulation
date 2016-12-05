@@ -31,7 +31,7 @@ GLfloat normals[] = {
     0,0,1
 };
 
-Cloth cloth(glm::vec3(0,0,0), 2,2);
+Cloth cloth(glm::vec3(0,0,0), 10,20);
 
 double delta = 0;
 long currentTime = 0;
@@ -94,17 +94,16 @@ void setupCamera(){
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
 
     // model view call
-    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 0, -5), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 5), glm::vec3(0,0,0), glm::vec3(0,1,0));
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
-
 }
 void init(){
     glEnable(GL_DEPTH_TEST);
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     GLuint programId = setupShaders();
     glCullFace(GL_FRONT_AND_BACK);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     setupCamera();
     cloth.initCloth();
 }

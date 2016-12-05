@@ -46,11 +46,18 @@
 			<Add directory="C:/MinGW/lib" />
 		</Linker>
 		<Unit filename="include/Cloth.h" />
+		<Unit filename="include/ClothSimulation.h" />
 		<Unit filename="include/Entity.h" />
+		<Unit filename="include/Mass.h" />
+		<Unit filename="include/Spring.h" />
+		<Unit filename="include/vertex.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="shader.cpp" />
 		<Unit filename="shader.h" />
 		<Unit filename="src/Cloth.cpp" />
+		<Unit filename="src/ClothSimulation.cpp" />
+		<Unit filename="src/Mass.cpp" />
+		<Unit filename="src/Spring.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
