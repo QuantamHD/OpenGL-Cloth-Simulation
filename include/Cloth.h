@@ -27,22 +27,29 @@ class Cloth
         GLuint GetvaoID() { return vaoID; }
         void draw(float delta);
         void initCloth();
-                void printVertices();
+        void printVertices();
     protected:
 
     private:
-        GLuint vboID;
-        GLuint vaoID;
-        GLuint eboID;
         int sliceX;
         int sliceY;
-        glm::vec3 position;
         int indicesSize;
-        GLfloat* indices;
-        GLfloat* vertices;
-        int sizeOfIndices();
 
+        GLuint positionID;
+        GLuint normalID;
+        GLuint eboID;
+        GLuint vaoID;
+
+
+        GLfloat* indices;
+        GLfloat* position;
+        GLfloat* normals;
+
+        glm::vec3 position;
+
+        int sizeOfIndices();
         int byteSizeOfVertexArray();
+
         GLfloat* createVertices(glm::vec3 position, int slicesX, int slicesY);
         GLfloat* createIndices(int slicesX, int slicesY);
 
