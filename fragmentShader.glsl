@@ -8,7 +8,7 @@ in vec3 FragPos;
 
 void main()
 {
-    vec3 objectColor = vec3(0.0, 0.0, 0.5);
+    vec3 objectColor = vec3(231.0 / 255.0, 76.0 / 255.0, 60.0 / 255.0);
     vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
     float specularStrength = 0.5f;
     float ambientStrength = 0.1f;

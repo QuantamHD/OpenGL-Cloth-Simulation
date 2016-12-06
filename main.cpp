@@ -19,7 +19,7 @@
 #include<vertex.h>
 
 
-Cloth cloth(glm::vec3(-5,5.0,0), 15,20);
+Cloth cloth(glm::vec3(-7,5.0,0), 15,20);
 
 double delta = 0;
 long currentTime = 0;
@@ -88,7 +88,7 @@ void resizeViewport(int width, int height){
 }
 
 void display(){
-    glClearColor(0.5019, 0.8, 0.8,1);
+    glClearColor(52 /255.0, 152 / 255.0, 219/ 255.0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     calculateDeltaTime();
 
