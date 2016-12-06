@@ -21,8 +21,12 @@
 
 Cloth cloth(glm::vec3(-5,5.0,0), 15,20);
 
+
 double delta = 0;
+int mouseDelta = -1;
+int mousePreviousPosition = -1;
 long currentTime = 0;
+float angle = 0;
 GLuint VBO, VAO, Vpostion, Vnormal;
 GLuint shaderProgram;
 
@@ -63,7 +67,7 @@ void setupCamera(){
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
 
     // model view call
-    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 10), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 15), glm::vec3(0,0,0), glm::vec3(0,1,0));
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
 }
@@ -77,6 +81,22 @@ void init(){
     cloth.initCloth();
 }
 
+void passiveMouseMovement(int x, int y){
+    mouseDelta =  x - mousePreviousPosition ;
+    std::cout << mouseDelta << std::endl;
+    mousePreviousPosition = x;
+}
+
+void mouseMovement(int x, int y){
+    float angleDelta = mouseDelta/100.0;
+    angle += angleDelta;
+    glm::mat4 modelView = glm::lookAt(glm::vec3(sin(angle)*15, 5, cos(angle)*15), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
+    glutPostRedisplay();
+    mouseDelta =  x - mousePreviousPosition ;
+    mousePreviousPosition = x;
+}
 
 void resizeViewport(int width, int height){
     glViewport(0,0,width, height);
@@ -109,6 +129,8 @@ int main(int argc, char **argv){
 
     glutTimerFunc(8, animate, 0);
     glutDisplayFunc(display);
+    glutMotionFunc(mouseMovement);
+    glutPassiveMotionFunc(passiveMouseMovement);
     glutReshapeFunc(resizeViewport);
     glutMainLoop();
 
