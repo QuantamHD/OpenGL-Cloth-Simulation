@@ -10,7 +10,6 @@ Mass::Mass(glm::vec3 position, bool movable)
 
 Mass::~Mass()
 {
-    //dtor
 }
 
 void Mass::addPosition(glm::vec3 positionDelta){
@@ -32,10 +31,13 @@ void Mass::calculateNewPosition(){
         glm::vec3 temporary = this->position;
         this->position = this->position + (this->position- this->previousPosition)*(0.9f) + (this->acceleration * TIME_STEP);
         this->previousPosition = temporary;
-        this->acceleration = glm::vec3(0,0,0);
+        this->acceleration = glm::vec3(0,0,0);//The acceleration is added on time step and is thus cleared after.
     }
 }
-
+/**
+will calculate the constracts for this mass, and all the others
+it is connected to.
+*/
 void Mass::constraintSolve(){
     for(int i = 0; i < this->springs.size(); i++){
         springs[i].satisfyConstraint();

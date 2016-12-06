@@ -20,7 +20,10 @@ Cloth::Cloth(glm::vec3 position,int sliceX,int sliceY)
 Cloth::~Cloth()
 {
 }
-
+/**
+From my understanding all that is required here is to implement draw is to attach
+the vao that the buffer data was created from.
+*/
 void Cloth::draw(float delta){
 
     glBindVertexArray(vaoID);
@@ -32,6 +35,19 @@ void Cloth::rebind() {
     glBindBuffer(GL_ARRAY_BUFFER, this->positionID);
     glBufferData(GL_ARRAY_BUFFER, this->positionSize * sizeof(GLfloat), positionCords, GL_STATIC_DRAW);
 }
+
+void Cloth::normalizeNormals(){
+    for(int i = 0; i < normalsSize; i+= 3){
+        glm::vec3 normal = glm::vec3(normalsCords[i], normalsCords[i+1], normalsCords[i+2]);
+
+        normal = glm::normalize(normal);
+
+        normalsCords[i] = normal.x;
+        normalsCords[i+1] = normal.y;
+        normalsCords[i+2] = normal.z;
+    }
+}
+
 
 void Cloth::calculateNormals(){
     for(int i = 0; i < normalsSize; i++){
@@ -65,15 +81,8 @@ void Cloth::calculateNormals(){
         normalsCords[(index3*3) + 2] += crossProduct.z;
     }
 
-    for(int i = 0; i < normalsSize; i+= 3){
-        glm::vec3 normal = glm::vec3(normalsCords[i], normalsCords[i+1], normalsCords[i+2]);
+    normalizeNormals();
 
-        normal = glm::normalize(normal);
-
-        normalsCords[i] = normal.x;
-        normalsCords[i+1] = normal.y;
-        normalsCords[i+2] = normal.z;
-    }
 
     glBindBuffer(GL_ARRAY_BUFFER, this->normalID);
     glBufferData(GL_ARRAY_BUFFER, this->normalsSize * sizeof(GLfloat), normalsCords, GL_STATIC_DRAW);
@@ -89,9 +98,11 @@ void Cloth::update(float delta) {
         float x = this->masses[i]->position.x;
         float y = this->masses[i]->position.y;
         float z = this->masses[i]->position.z;
+
         this->masses[i]->addForce(glm::vec3(0, -10.4, 0));
         this->masses[i]->addForce(glm::vec3(sin(x*y*t)*random+windX,cos(z*t)+windY*random, sin(cos(5*x*y*z)))*4.8f+windZ*random);
         this->masses[i]->calculateNewPosition();
+
         this->positionCords[k++] = this->masses[i]->position.x;
         this->positionCords[k++] = this->masses[i]->position.y;
         this->positionCords[k++] = this->masses[i]->position.z;
@@ -108,10 +119,6 @@ void Cloth::update(float delta) {
     calculateNormals();
 
     rebind();
-}
-
-int Cloth::byteSizeOfVertexArray(){
-    return 2;
 }
 
 
@@ -231,6 +238,11 @@ void Cloth::attachSprings(int slicesX, int slicesY) {
     }
 }
 
+
+/**
+Once again this will just stick some vertices positions to "hang"
+the cloth.
+*/
 void Cloth::stickTop(int sliceX, int slicesY) {
     this->leftPin = masses[0];
     this->rightPin = masses[(sliceX-1)*slicesY];
@@ -239,6 +251,9 @@ void Cloth::stickTop(int sliceX, int slicesY) {
     this->masses[(sliceX-1)*slicesY]->movable = false;
 }
 
+/**
+Just filling the data here.
+*/
 void Cloth::initCloth(){
 
     glGenVertexArrays(1, &vaoID);

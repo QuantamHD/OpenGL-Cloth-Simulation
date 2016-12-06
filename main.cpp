@@ -18,22 +18,26 @@
 #include<glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include<vertex.h>
-
+#include <Hanger.h>
 
 
 Cloth cloth(glm::vec3(-15,7.0,0), 15,30);
 Cloth cloth1(glm::vec3(0,7.0,0), 15,30);
-Rack rack(glm::vec3(0, 0.0, 0.0), 5, 5);
+Hanger hanger;
 
 double delta = 0;
+float angle = 0;
+
 int mouseDelta = -1;
 int mousePreviousPosition = -1;
+
 long currentTime = 0;
-float angle = 0;
+
 glm::vec3 lightPos = glm::vec3(7.0, 10.0, 1.0);
-glm::vec3 cameraPos = glm::vec3(0, 5, 20);
-GLuint VBO, VAO, Vpostion, Vnormal;
+glm::vec3 cameraPos = glm::vec3(0, 5, 25);
 GLuint shaderProgram;
+GLint objectcolore;
+
 
 void calculateDeltaTime(){
     long newTime = glutGet(GLUT_ELAPSED_TIME);
@@ -65,9 +69,10 @@ GLuint setupShaders() {
 
     GLint lightPosLoc = glGetUniformLocation(shaderProgram, "lightPos");
     glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
+
+    objectcolore = glGetUniformLocation(shaderProgram, "objectColor");
+    glUniform3f(objectcolore, 231.0 / 255.0, 76.0 / 255.0, 60.0 / 255.0);
 }
-
-
 
 void setupCamera(){
         // Frustum call
@@ -80,31 +85,31 @@ void setupCamera(){
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
 }
+
 void init(){
     glEnable(GL_DEPTH_TEST);
     currentTime = glutGet(GLUT_ELAPSED_TIME);
+
     GLuint programId = setupShaders();
+
     glCullFace(GL_FRONT_AND_BACK);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
     setupCamera();
+
     cloth.initCloth();
     cloth1.initCloth();
-    rack.init();
+    hanger.create();
 }
 
 void passiveMouseMovement(int x, int y){
     mouseDelta =  x - mousePreviousPosition ;
-    //std::cout << mouseDelta << std::endl;
     mousePreviousPosition = x;
-
 }
 
 void mouseMovement(int x, int y){
     float angleDelta = mouseDelta/100.0;
     angle += angleDelta;
-    glm::mat4 modelView = glm::lookAt(glm::vec3(sin(angle)*20, 5, cos(angle)*20), glm::vec3(0,0,0), glm::vec3(0,1,0));
-    GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
-    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
     glutPostRedisplay();
     mouseDelta =  x - mousePreviousPosition ;
     mousePreviousPosition = x;
@@ -138,12 +143,28 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     calculateDeltaTime();
 
-    //drawTriangle();
+    glm::mat4x4 modelView = glm::lookAt(glm::vec3(sin(angle)*25, 5, cos(angle)*25), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
+
     glUseProgram(shaderProgram);
     cloth.draw(delta);
     cloth1.draw(delta);
-    rack.draw(delta);
+
+    hanger.draw(modelView, modelLocation, objectcolore);
     glutSwapBuffers();
+}
+
+void printInstructions(){
+    std::cout << "Description: This project uses the latest, and greatest in Verlet Integration to provide you with the premier Cloth Simulator 2016." << std::endl << std::endl;
+    std::cout << "Thanks To The following Sources" << std::endl << std::endl;
+    std::cout << "https://learnopengl.com/" << " For tutorials on OpenGL" << std::endl;
+    std::cout << "https://graphics.stanford.edu/~mdfisher/cloth.html" << " For Dr. Fisher's explanation of Physics Simulations in OpenGL." << std::endl << std::endl;
+
+    std::cout << "Instruction" << std::endl << std::endl;
+    std::cout << "Press C - to open curtains" << std::endl;
+    std::cout << "Press D - to close curtains" << std::endl;
+    std::cout << "click and drag to move camera" << std::endl;
 }
 
 int main(int argc, char **argv){
@@ -151,6 +172,8 @@ int main(int argc, char **argv){
     glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
     glutInitContextVersion( 3, 2 );
     glutInitContextProfile( GLUT_CORE_PROFILE );
+
+    printInstructions();
 
     glutInitWindowSize(720,720);
     glutCreateWindow( "Cloth Simulation" );

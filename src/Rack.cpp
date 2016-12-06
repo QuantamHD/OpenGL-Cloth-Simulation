@@ -1,32 +1,29 @@
 #include "Rack.h"
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
 #include <iostream>
-
-Rack::Rack(glm::vec3 position, int slicesX, int slicesY) {
-    this->position = position;
-    this->slicesX = slicesX;
-    this->slicesY = slicesY;
+#include <stack>
+/**
+This represents a very simple cube object.
+*/
+Rack::Rack() {
 }
 
 Rack::~Rack(){
 }
 
-void Rack::init(glm::mat4 modelView) {
+void Rack::init() {
 
     GLfloat positionCords[] = {
-        position.x,     position.y,     position.z, 1,
-        position.x,     position.y - 1, position.z, 1,
-        position.x + 1, position.y - 1, position.z, 1,
-        position.x + 1, position.y,     position.z, 1,
-        position.x + 1, position.y - 1, position.z - 1, 1,
-        position.x + 1, position.y,     position.z - 1, 1,
-        position.x,     position.y,     position.z - 1, 1,
-        position.x,     position.y - 1, position.z - 1, 1
+        -1.0, -1.0,  1.0, 1,
+         1.0, -1.0,  1.0, 1,
+         1.0,  1.0,  1.0, 1,
+        -1.0,  1.0,  1.0, 1,
+        -1.0, -1.0, -1.0, 1,
+         1.0, -1.0, -1.0, 1,
+         1.0,  1.0, -1.0, 1,
+        -1.0,  1.0, -1.0, 1
     };
-
-    std::cout << "x: " << position.x << "\n";
-    std::cout << "y: " << position.y << "\n";
-
 
     GLfloat normalsCords[] = {
         1, 1, 1,
@@ -40,15 +37,24 @@ void Rack::init(glm::mat4 modelView) {
     };
 
     GLuint indices[] = {
-        0, 1, 2,
-        0, 3, 2,
-        3, 2, 4,
-        5, 3, 4,
-        6, 5, 7,
-        6, 5, 3,
-        0, 3, 6,
-        0, 1, 7,
-        0, 6, 7
+        // front
+		0, 1, 2,
+		2, 3, 0,
+		// top
+		1, 5, 6,
+		6, 2, 1,
+		// back
+		7, 6, 5,
+		5, 4, 7,
+		// bottom
+		4, 0, 3,
+		3, 7, 4,
+		// left
+		4, 5, 1,
+		1, 0, 4,
+		// right
+		3, 2, 6,
+		6, 7, 3,
     };
 
     glGenVertexArrays(1, &vaoID);
@@ -75,9 +81,9 @@ void Rack::init(glm::mat4 modelView) {
     glBindVertexArray(0);
 }
 
-void Rack::draw(float delta) {
+void Rack::draw() {
     glBindVertexArray(vaoID);
-    glDrawElements(GL_TRIANGLES, 9*3, GL_UNSIGNED_INT, (void*)0);
+    glDrawElements(GL_TRIANGLES, 12*3, GL_UNSIGNED_INT, (void*)0);
     glBindVertexArray(0);
 }
 

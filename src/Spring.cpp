@@ -1,6 +1,9 @@
 #include "Spring.h"
 #include<iostream>
-
+/**
+The constraints of the cloth are dealt with here by preventing
+the over extension of the cloth along any axis.
+*/
 Spring::Spring(Mass* fixedMass, Mass* dynamicMass)
 {
     this->fixedMass = fixedMass;

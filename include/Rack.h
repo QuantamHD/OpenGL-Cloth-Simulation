@@ -1,8 +1,6 @@
 #ifndef RACK_H
 #define RACK_H
 
-#define PI 3.14159265
-
 #ifdef __APPLE__
 #  include <GL/glew.h>
 #  include <GL/freeglut.h>
@@ -21,16 +19,13 @@ class Rack
 {
 
 public:
-    Rack(glm::vec3 position, int width, int height);
+    Rack();
     virtual ~Rack();
 
     void init();
-    void draw(float delta);
+    void draw();
 
 private:
-    glm::vec3 position;
-    int slicesX;
-    int slicesY;
 
     GLuint positionID;
     GLuint normalID;
