@@ -23,7 +23,8 @@ Cloth cloth(glm::vec3(-5,5.0,0), 15,20);
 
 double delta = 0;
 long currentTime = 0;
-glm::vec3 lightPos = glm::vec3(7.0, 10.0, -1.0);
+glm::vec3 lightPos = glm::vec3(7.0, 10.0, 1.0);
+glm::vec3 cameraPos = glm::vec3(0, 5, 10);
 GLuint VBO, VAO, Vpostion, Vnormal;
 GLuint shaderProgram;
 
@@ -67,7 +68,7 @@ void setupCamera(){
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
 
     // model view call
-    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 10), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    glm::mat4 modelView = glm::lookAt(cameraPos, glm::vec3(0,0,0), glm::vec3(0,1,0));
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
 }
