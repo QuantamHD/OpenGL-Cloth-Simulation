@@ -11,6 +11,7 @@ Cloth::Cloth(glm::vec3 position,int sliceX,int sliceY)
     this->sliceY = sliceY;
     this->position = position;
     this->t = 0;
+    this->windY = 1.0;
 }
 
 Cloth::~Cloth()
@@ -76,13 +77,17 @@ void Cloth::calculateNormals(){
 }
 
 void Cloth::update(float delta) {
+    windY = sin(glutGet(GLUT_ELAPSED_TIME) / 100);
+    windX = cos(glutGet(GLUT_ELAPSED_TIME) / 200) * 0.5;
+    windZ = cos(glutGet(GLUT_ELAPSED_TIME) / 300) * 0.5;
+
     int k = 0;
     for (int i = 0; i < masses.size(); i++) {
         float x = this->masses[i]->position.x;
         float y = this->masses[i]->position.y;
         float z = this->masses[i]->position.z;
         this->masses[i]->addForce(glm::vec3(0, -10.4, 0));
-        this->masses[i]->addForce(glm::vec3(sin(x*y*t),cos(z*t), sin(cos(5*x*y*z)))*4.8f);
+        this->masses[i]->addForce(glm::vec3(sin(x*y*t)+windX,cos(z*t)+windY, sin(cos(5*x*y*z)))*4.8f+windZ);
         this->masses[i]->calculateNewPosition();
         this->positionCords[k++] = this->masses[i]->position.x;
         this->positionCords[k++] = this->masses[i]->position.y;

@@ -30,6 +30,9 @@ class Cloth
         void initCloth();
         void printVertices();
         void update(float delta);
+        float windY;
+        float windX;
+        float windZ;
     protected:
 
     private:
