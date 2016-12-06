@@ -23,6 +23,7 @@ Cloth cloth(glm::vec3(-5,5.0,0), 15,20);
 
 double delta = 0;
 long currentTime = 0;
+glm::vec3 lightPos = glm::vec3(7.0, 10.0, -1.0);
 GLuint VBO, VAO, Vpostion, Vnormal;
 GLuint shaderProgram;
 
@@ -52,6 +53,9 @@ GLuint setupShaders() {
     glLinkProgram(programId);
     glUseProgram(programId);
     shaderProgram = programId;
+
+    GLint lightPosLoc = glGetUniformLocation(shaderProgram, "lightPos");
+    glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 }
 
 
