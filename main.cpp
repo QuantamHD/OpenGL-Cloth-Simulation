@@ -19,7 +19,8 @@
 #include<vertex.h>
 
 
-Cloth cloth(glm::vec3(-5,5.0,0), 15,20);
+Cloth cloth(glm::vec3(-15,7.0,0), 15,30);
+Cloth cloth1(glm::vec3(0,7.0,0), 15,30);
 
 
 double delta = 0;
@@ -27,6 +28,8 @@ int mouseDelta = -1;
 int mousePreviousPosition = -1;
 long currentTime = 0;
 float angle = 0;
+glm::vec3 lightPos = glm::vec3(7.0, 10.0, 1.0);
+glm::vec3 cameraPos = glm::vec3(0, 5, 20);
 GLuint VBO, VAO, Vpostion, Vnormal;
 GLuint shaderProgram;
 
@@ -39,6 +42,7 @@ void calculateDeltaTime(){
 void update(){
     //std::cout << "Time per frame in seconds " << delta << std::endl;
     cloth.update(delta);
+    cloth1.update(delta);
 }
 
 void animate(int value){
@@ -56,6 +60,9 @@ GLuint setupShaders() {
     glLinkProgram(programId);
     glUseProgram(programId);
     shaderProgram = programId;
+
+    GLint lightPosLoc = glGetUniformLocation(shaderProgram, "lightPos");
+    glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 }
 
 
@@ -67,7 +74,7 @@ void setupCamera(){
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projMat));
 
     // model view call
-    glm::mat4 modelView = glm::lookAt(glm::vec3(0, 5, 15), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    glm::mat4 modelView = glm::lookAt(cameraPos, glm::vec3(0,0,0), glm::vec3(0,1,0));
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
 }
@@ -79,18 +86,19 @@ void init(){
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     setupCamera();
     cloth.initCloth();
+    cloth1.initCloth();
 }
 
 void passiveMouseMovement(int x, int y){
     mouseDelta =  x - mousePreviousPosition ;
-    std::cout << mouseDelta << std::endl;
+    //std::cout << mouseDelta << std::endl;
     mousePreviousPosition = x;
 }
 
 void mouseMovement(int x, int y){
     float angleDelta = mouseDelta/100.0;
     angle += angleDelta;
-    glm::mat4 modelView = glm::lookAt(glm::vec3(sin(angle)*15, 5, cos(angle)*15), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    glm::mat4 modelView = glm::lookAt(glm::vec3(sin(angle)*20, 5, cos(angle)*20), glm::vec3(0,0,0), glm::vec3(0,1,0));
     GLint modelLocation = glGetUniformLocation(shaderProgram, "modelViewMatrix");
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(modelView));
     glutPostRedisplay();
@@ -102,15 +110,34 @@ void resizeViewport(int width, int height){
     glViewport(0,0,width, height);
 }
 
+void keyboardf(unsigned char keycode, int x, int y){
+    //std::cout << keycode << std::endl;
+    if(keycode == 'c'){
+        float length = glm::distance(cloth.rightPin->position - glm::vec3(1, 0, 0), cloth.leftPin->position);
+        if(length > 0.5){
+            cloth.rightPin->position -= glm::vec3(1, 0, 0);
+            cloth1.leftPin->position += glm::vec3(1, 0, 0);
+        }
+    }
+
+    if(keycode == 'd'){
+        float length = glm::distance(cloth.rightPin->position + glm::vec3(1, 0, 0), cloth.leftPin->position);
+        if(length < 15){
+            cloth.rightPin->position += glm::vec3(1, 0, 0);
+            cloth1.leftPin->position -= glm::vec3(1, 0, 0);
+        }
+    }
+}
+
 void display(){
-    glClearColor(0.5019, 0.8, 0.8,1);
+    glClearColor(52 /255.0, 152 / 255.0, 219/ 255.0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     calculateDeltaTime();
 
     //drawTriangle();
     glUseProgram(shaderProgram);
     cloth.draw(delta);
-
+    cloth1.draw(delta);
     glutSwapBuffers();
 }
 
@@ -132,6 +159,7 @@ int main(int argc, char **argv){
     glutMotionFunc(mouseMovement);
     glutPassiveMotionFunc(passiveMouseMovement);
     glutReshapeFunc(resizeViewport);
+    glutKeyboardFunc(keyboardf);
     glutMainLoop();
 
     return 0;

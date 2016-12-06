@@ -2,8 +2,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include "Mass.h"
+#include <stdlib.h>
 
 
+#include<cmath>
 
 Cloth::Cloth(glm::vec3 position,int sliceX,int sliceY)
 {
@@ -11,6 +13,8 @@ Cloth::Cloth(glm::vec3 position,int sliceX,int sliceY)
     this->sliceY = sliceY;
     this->position = position;
     this->t = 0;
+    this->windY = 1.0;
+    this->random = 4/rand();
 }
 
 Cloth::~Cloth()
@@ -76,13 +80,17 @@ void Cloth::calculateNormals(){
 }
 
 void Cloth::update(float delta) {
+    windY = sin(glutGet(GLUT_ELAPSED_TIME) / 100);
+    windX = cos(glutGet(GLUT_ELAPSED_TIME) / 200) * 0.5;
+    windZ = cos(glutGet(GLUT_ELAPSED_TIME) / 300) * 0.5;
+
     int k = 0;
     for (int i = 0; i < masses.size(); i++) {
         float x = this->masses[i]->position.x;
         float y = this->masses[i]->position.y;
         float z = this->masses[i]->position.z;
         this->masses[i]->addForce(glm::vec3(0, -10.4, 0));
-        this->masses[i]->addForce(glm::vec3(sin(x*y*t),cos(z*t), sin(cos(5*x*y*z)))*4.8f);
+        this->masses[i]->addForce(glm::vec3(sin(x*y*t)*random+windX,cos(z*t)+windY*random, sin(cos(5*x*y*z)))*4.8f+windZ*random);
         this->masses[i]->calculateNewPosition();
         this->positionCords[k++] = this->masses[i]->position.x;
         this->positionCords[k++] = this->masses[i]->position.y;
@@ -224,6 +232,9 @@ void Cloth::attachSprings(int slicesX, int slicesY) {
 }
 
 void Cloth::stickTop(int sliceX, int slicesY) {
+    this->leftPin = masses[0];
+    this->rightPin = masses[(sliceX-1)*slicesY];
+
     this->masses[0]->movable = false;
     this->masses[(sliceX-1)*slicesY]->movable = false;
 }

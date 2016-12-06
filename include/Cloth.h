@@ -30,6 +30,12 @@ class Cloth
         void initCloth();
         void printVertices();
         void update(float delta);
+        float windY;
+        float windX;
+        float windZ;
+        Mass* leftPin;
+        Mass* rightPin;
+
     protected:
 
     private:
@@ -49,10 +55,14 @@ class Cloth
         GLfloat* positionCords;
         GLfloat* normalsCords;
 
+        float random;
+
         void calculateNormals();
         void rebind();
 
         glm::vec3 position;
+
+
 
         std::vector<Mass*> masses;
 
