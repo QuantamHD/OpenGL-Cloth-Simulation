@@ -29,6 +29,52 @@ void Cloth::rebind() {
     glBufferData(GL_ARRAY_BUFFER, this->positionSize * sizeof(GLfloat), positionCords, GL_STATIC_DRAW);
 }
 
+void Cloth::calculateNormals(){
+    for(int i = 0; i < normalsSize; i++){
+        normalsCords[i] = 1.0f;
+    }
+
+    for(int i = 0; i < indicesSize; i+= 3){
+        int index1 = indices[i];
+        int index2 = indices[i+1];
+        int index3 = indices[i+2];
+
+        glm::vec3 point1 = glm::vec3(positionCords[index1*4], positionCords[(index1*4)+1], positionCords[(index1*4)+2]);
+        glm::vec3 point2 = glm::vec3(positionCords[index2*4], positionCords[(index2*4)+1], positionCords[(index2*4)+2]);
+        glm::vec3 point3 = glm::vec3(positionCords[index3*4], positionCords[(index3*4)+1], positionCords[(index3*4)+2]);
+
+        glm::vec3 v1 = point2-point1;
+		glm::vec3 v2 = point3-point1;
+
+		glm::vec3 crossProduct = glm::cross(v2,v1);
+
+        normalsCords[index1*3]       += crossProduct.x;
+        normalsCords[(index1*3) + 1] += crossProduct.y;
+        normalsCords[(index1*3) + 2] += crossProduct.z;
+
+        normalsCords[index2*3]       += crossProduct.x;
+        normalsCords[(index2*3) + 1] += crossProduct.y;
+        normalsCords[(index2*3) + 2] += crossProduct.z;
+
+        normalsCords[index3*3]       += crossProduct.x;
+        normalsCords[(index3*3) + 1] += crossProduct.y;
+        normalsCords[(index3*3) + 2] += crossProduct.z;
+    }
+
+    for(int i = 0; i < normalsSize; i+= 3){
+        glm::vec3 normal = glm::vec3(normalsCords[i], normalsCords[i+1], normalsCords[i+2]);
+
+        normal = glm::normalize(normal);
+
+        normalsCords[i] = normal.x;
+        normalsCords[i+1] = normal.y;
+        normalsCords[i+2] = normal.z;
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, this->normalID);
+    glBufferData(GL_ARRAY_BUFFER, this->normalsSize * sizeof(GLfloat), normalsCords, GL_STATIC_DRAW);
+}
+
 void Cloth::update(float delta) {
     int k = 0;
     for (int i = 0; i < masses.size(); i++) {
@@ -36,7 +82,7 @@ void Cloth::update(float delta) {
         float y = this->masses[i]->position.y;
         float z = this->masses[i]->position.z;
         this->masses[i]->addForce(glm::vec3(0, -10.4, 0));
-        this->masses[i]->addForce(glm::vec3(sin(x*y*t),cos(z*t), sin(cos(5*x*y*z)))*10.8f);
+        this->masses[i]->addForce(glm::vec3(sin(x*y*t),cos(z*t), sin(cos(5*x*y*z)))*4.8f);
         this->masses[i]->calculateNewPosition();
         this->positionCords[k++] = this->masses[i]->position.x;
         this->positionCords[k++] = this->masses[i]->position.y;
@@ -50,6 +96,8 @@ void Cloth::update(float delta) {
             this->masses[n]->constraintSolve();
         }
     }
+
+    calculateNormals();
 
     rebind();
 }
@@ -87,6 +135,8 @@ void Cloth::createVertices(glm::vec3 topLeft, int slicesX, int slicesY) {
     this->positionSize = k;
     this->normalsSize = n;
 }
+
+
 
 void Cloth::createIndices(int slicesX, int slicesY) {
     this->indicesSize = ((sliceX-1)*(sliceY-1))*6;
