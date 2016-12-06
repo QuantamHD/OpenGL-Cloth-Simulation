@@ -33,6 +33,9 @@ class Cloth
         float windY;
         float windX;
         float windZ;
+
+        glm::vec3 leftpinPosition;
+        glm::vec3 rightpinPosition;
     protected:
 
     private:
