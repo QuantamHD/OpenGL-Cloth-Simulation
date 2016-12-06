@@ -1,18 +1,20 @@
 # depslib dependency file v1.0
-1480877574 source:u:\graphics\opengl-cloth-simulation\shader.cpp
-	<cstdlib>
-	<iostream>
-	<fstream>
-	<cstring>
-	"shader.h"
+1480992388 source:u:\graphics\opengl-cloth-simulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<GL/glext.h>
-
-1480877133 u:\graphics\opengl-cloth-simulation\shader.h
+	<iostream>
+	"shader.h"
+	<cmath>
+	<Cloth.h>
+	<Rack.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<vertex.h>
 
 1467824614 c:\mingw\include\gl\glew.h
 	<stddef.h>
@@ -262,10 +264,9 @@
 1301111165 c:\mingw\include\gl\glext.h
 	<windows.h>
 
-1480967430 source:u:\graphics\opengl-cloth-simulation\src\clothsimulation.cpp
-	"ClothSimulation.h"
+1480877133 u:\graphics\opengl-cloth-simulation\shader.h
 
-1480967430 u:\graphics\opengl-cloth-simulation\include\clothsimulation.h
+1480985716 u:\graphics\opengl-cloth-simulation\include\cloth.h
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -273,6 +274,9 @@
 	<GL/freeglut.h>
 	<GL/glext.h>
 	<glm/glm.hpp>
+	<Entity.h>
+	<vector>
+	<Mass.h>
 
 1473918302 u:\graphics\glm\glm\glm.hpp
 	"detail/_fixes.hpp"
@@ -717,9 +721,7 @@
 
 1473918304 u:\graphics\glm\glm\simd\integer.h
 
-1480972697 source:u:\graphics\opengl-cloth-simulation\src\mass.cpp
-	"Mass.h"
-	<iostream>
+1480889907 u:\graphics\opengl-cloth-simulation\include\entity.h
 
 1480971246 u:\graphics\opengl-cloth-simulation\include\mass.h
 	<vector>
@@ -729,40 +731,6 @@
 1480973953 u:\graphics\opengl-cloth-simulation\include\spring.h
 	<Mass.h>
 	<glm/glm.hpp>
-
-1480973238 source:u:\graphics\opengl-cloth-simulation\src\spring.cpp
-	"Spring.h"
-	<iostream>
-
-1480985621 source:u:\graphics\opengl-cloth-simulation\main.cpp
-	<GL/glew.h>
-	<GL/freeglut.h>
-	<OpenGL/glext.h>
-	<GL/glew.h>
-	<GL/freeglut.h>
-	<GL/glext.h>
-	<iostream>
-	"shader.h"
-	<cmath>
-	<Cloth.h>
-	<glm/glm.hpp>
-	<glm/gtc/matrix_transform.hpp>
-	<glm/gtc/type_ptr.hpp>
-	<vertex.h>
-
-1480985716 u:\graphics\opengl-cloth-simulation\include\cloth.h
-	<GL/glew.h>
-	<GL/freeglut.h>
-	<OpenGL/glext.h>
-	<GL/glew.h>
-	<GL/freeglut.h>
-	<GL/glext.h>
-	<glm/glm.hpp>
-	<Entity.h>
-	<vector>
-	<Mass.h>
-
-1480889907 u:\graphics\opengl-cloth-simulation\include\entity.h
 
 1473918302 u:\graphics\glm\glm\gtc\matrix_transform.hpp
 	"../mat4x4.hpp"
@@ -823,9 +791,57 @@
 
 1480967430 u:\graphics\opengl-cloth-simulation\include\vertex.h
 
+1480877574 source:u:\graphics\opengl-cloth-simulation\shader.cpp
+	<cstdlib>
+	<iostream>
+	<fstream>
+	<cstring>
+	"shader.h"
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+
 1480985610 source:u:\graphics\opengl-cloth-simulation\src\cloth.cpp
 	"Cloth.h"
 	<glm/gtc/type_ptr.hpp>
 	<iostream>
 	"Mass.h"
+
+1480967430 source:u:\graphics\opengl-cloth-simulation\src\clothsimulation.cpp
+	"ClothSimulation.h"
+
+1480967430 u:\graphics\opengl-cloth-simulation\include\clothsimulation.h
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+	<glm/glm.hpp>
+
+1480972697 source:u:\graphics\opengl-cloth-simulation\src\mass.cpp
+	"Mass.h"
+	<iostream>
+
+1480973238 source:u:\graphics\opengl-cloth-simulation\src\spring.cpp
+	"Spring.h"
+	<iostream>
+
+1480992454 source:u:\graphics\opengl-cloth-simulation\src\rack.cpp
+	"Rack.h"
+	<glm/gtc/type_ptr.hpp>
+	<iostream>
+
+1480992262 u:\graphics\opengl-cloth-simulation\include\rack.h
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+	<glm/glm.hpp>
+	<vector>
 

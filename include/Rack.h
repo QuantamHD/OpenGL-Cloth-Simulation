@@ -21,7 +21,7 @@ class Rack
 {
 
 public:
-    Rack(glm::vec3 position, int width, int height, float r);
+    Rack(glm::vec3 position, int width, int height);
     virtual ~Rack();
 
     void init();
@@ -31,15 +31,13 @@ private:
     glm::vec3 position;
     int slicesX;
     int slicesY;
-    float radius;
+
+    GLuint positionID;
+    GLuint normalID;
+    GLuint eboID;
+    GLuint vaoID;
 
     int positionSize;
-    GLuint* indices;
-    GLfloat* positionCords;
-    GLfloat* normalsCords;
-
-    void createVertices(glm::vec3 position);
-    void createIndices();
 
 
 };

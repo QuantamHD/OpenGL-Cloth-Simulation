@@ -13,6 +13,7 @@
 #include "shader.h"
 #include<cmath>
 #include<Cloth.h>
+#include<Rack.h>
 #include<glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -20,6 +21,7 @@
 
 
 Cloth cloth(glm::vec3(-7,5.0,0), 15,20);
+Rack rack(glm::vec3(-7, 0.0, 2.0), 5, 5);
 
 double delta = 0;
 long currentTime = 0;
@@ -80,6 +82,7 @@ void init(){
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     setupCamera();
     cloth.initCloth();
+    rack.init();
 }
 
 
@@ -95,6 +98,7 @@ void display(){
     //drawTriangle();
     glUseProgram(shaderProgram);
     cloth.draw(delta);
+    rack.draw(delta);
 
     glutSwapBuffers();
 }
