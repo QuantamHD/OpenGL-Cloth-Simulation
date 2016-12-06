@@ -11,18 +11,22 @@ Rack::Rack(glm::vec3 position, int slicesX, int slicesY) {
 Rack::~Rack(){
 }
 
-void Rack::init() {
+void Rack::init(glm::mat4 modelView) {
 
     GLfloat positionCords[] = {
-        position.x,     position.y,     position.z,
-        position.x,     position.y - 1, position.z,
-        position.x + 1, position.y - 1, position.z,
-        position.x + 1, position.y,     position.z,
-        position.x + 1, position.y - 1, position.z - 1,
-        position.x + 1, position.y,     position.z - 1,
-        position.x,     position.y,     position.z - 1,
-        position.x,     position.y - 1, position.z - 1
+        position.x,     position.y,     position.z, 1,
+        position.x,     position.y - 1, position.z, 1,
+        position.x + 1, position.y - 1, position.z, 1,
+        position.x + 1, position.y,     position.z, 1,
+        position.x + 1, position.y - 1, position.z - 1, 1,
+        position.x + 1, position.y,     position.z - 1, 1,
+        position.x,     position.y,     position.z - 1, 1,
+        position.x,     position.y - 1, position.z - 1, 1
     };
+
+    std::cout << "x: " << position.x << "\n";
+    std::cout << "y: " << position.y << "\n";
+
 
     GLfloat normalsCords[] = {
         1, 1, 1,
@@ -47,12 +51,10 @@ void Rack::init() {
         0, 6, 7
     };
 
-
     glGenVertexArrays(1, &vaoID);
     glGenBuffers(1, &positionID);
     glGenBuffers(1, &normalID);
     glGenBuffers(1, &eboID);
-
 
     glBindVertexArray(vaoID);
 

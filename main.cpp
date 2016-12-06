@@ -23,7 +23,7 @@
 
 Cloth cloth(glm::vec3(-15,7.0,0), 15,30);
 Cloth cloth1(glm::vec3(0,7.0,0), 15,30);
-Rack rack(glm::vec3(-7, 0.0, 2.0), 5, 5);
+Rack rack(glm::vec3(0, 0.0, 0.0), 5, 5);
 
 double delta = 0;
 int mouseDelta = -1;
