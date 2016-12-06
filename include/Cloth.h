@@ -35,7 +35,6 @@ class Cloth
         float windZ;
         Mass* leftPin;
         Mass* rightPin;
-
     protected:
 
     private:

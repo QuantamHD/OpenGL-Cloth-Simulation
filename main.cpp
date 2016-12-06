@@ -13,15 +13,17 @@
 #include "shader.h"
 #include<cmath>
 #include<Cloth.h>
+#include<Rack.h>
 #include<glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include<vertex.h>
 
 
+
 Cloth cloth(glm::vec3(-15,7.0,0), 15,30);
 Cloth cloth1(glm::vec3(0,7.0,0), 15,30);
-
+Rack rack(glm::vec3(-7, 0.0, 2.0), 5, 5);
 
 double delta = 0;
 int mouseDelta = -1;
@@ -87,12 +89,14 @@ void init(){
     setupCamera();
     cloth.initCloth();
     cloth1.initCloth();
+    rack.init();
 }
 
 void passiveMouseMovement(int x, int y){
     mouseDelta =  x - mousePreviousPosition ;
     //std::cout << mouseDelta << std::endl;
     mousePreviousPosition = x;
+
 }
 
 void mouseMovement(int x, int y){
@@ -138,6 +142,7 @@ void display(){
     glUseProgram(shaderProgram);
     cloth.draw(delta);
     cloth1.draw(delta);
+    rack.draw(delta);
     glutSwapBuffers();
 }
 
