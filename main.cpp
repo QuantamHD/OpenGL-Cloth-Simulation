@@ -31,6 +31,8 @@ float angle = 0;
 int mouseDelta = -1;
 int mousePreviousPosition = -1;
 
+bool fillPolys = true;
+
 long currentTime = 0;
 
 glm::vec3 lightPos = glm::vec3(7.0, 10.0, 1.0);
@@ -136,6 +138,16 @@ void keyboardf(unsigned char keycode, int x, int y){
             cloth1.leftPin->position -= glm::vec3(1, 0, 0);
         }
     }
+
+    if(keycode == ' '){
+        if(fillPolys){
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            fillPolys = !fillPolys;
+        }else{
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            fillPolys = !fillPolys;
+        }
+    }
 }
 
 void display(){
@@ -164,7 +176,8 @@ void printInstructions(){
     std::cout << "Instruction" << std::endl << std::endl;
     std::cout << "Press C - to open curtains" << std::endl;
     std::cout << "Press D - to close curtains" << std::endl;
-    std::cout << "click and drag to move camera" << std::endl;
+    std::cout << "Click and drag to move camera" << std::endl;
+    std::cout << "Press space bar to see polygons." << std::endl;
 }
 
 int main(int argc, char **argv){
