@@ -1328,11 +1328,11 @@
 	<Mass.h>
 	<glm/glm.hpp>
 
-1480977510 source:u:\graphics2016\mahintorabiconradclothsimulation\src\spring.cpp
+1481004430 source:u:\graphics2016\mahintorabiconradclothsimulation\src\spring.cpp
 	"Spring.h"
 	<iostream>
 
-1481004055 source:u:\graphics2016\mahintorabiconradclothsimulation\main.cpp
+1481005332 source:u:\graphics2016\mahintorabiconradclothsimulation\main.cpp
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<OpenGL/glext.h>
@@ -1433,7 +1433,7 @@
 
 1480907046 u:\graphics2016\mahintorabiconradclothsimulation\include\vertex.h
 
-1480996134 source:u:\graphics2016\mahintorabiconradclothsimulation\src\cloth.cpp
+1481005635 source:u:\graphics2016\mahintorabiconradclothsimulation\src\cloth.cpp
 	"Cloth.h"
 	<glm/gtc/type_ptr.hpp>
 	<iostream>
@@ -1441,7 +1441,7 @@
 	<stdlib.h>
 	<cmath>
 
-1481002421 source:u:\graphics2016\mahintorabiconradclothsimulation\src\rack.cpp
+1481004142 source:u:\graphics2016\mahintorabiconradclothsimulation\src\rack.cpp
 	"Rack.h"
 	<glm/gtc/type_ptr.hpp>
 	<glm/gtx/transform.hpp>
@@ -1462,7 +1462,7 @@
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-1481002984 source:u:\graphics2016\mahintorabiconradclothsimulation\src\hanger.cpp
+1481004169 source:u:\graphics2016\mahintorabiconradclothsimulation\src\hanger.cpp
 	"Hanger.h"
 
 1481001976 u:\graphics2016\mahintorabiconradclothsimulation\include\hanger.h
@@ -1483,4 +1483,122 @@
 	"transform.inl"
 
 1473918304 u:\graphics2016\glm\glm\gtx\transform.inl
+
+1481055532 source:u:\graphics2016\mahintorabiconradfinalproject\main.cpp
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+	<iostream>
+	"shader.h"
+	<cmath>
+	<Cloth.h>
+	<Rack.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<vertex.h>
+	<Hanger.h>
+
+1480878278 u:\graphics2016\mahintorabiconradfinalproject\shader.h
+
+1480995991 u:\graphics2016\mahintorabiconradfinalproject\include\cloth.h
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+	<glm/glm.hpp>
+	<Entity.h>
+	<vector>
+	<Mass.h>
+
+1480888838 u:\graphics2016\mahintorabiconradfinalproject\include\entity.h
+
+1480976404 u:\graphics2016\mahintorabiconradfinalproject\include\mass.h
+	<vector>
+	<Spring.h>
+	<glm/glm.hpp>
+
+1480977510 u:\graphics2016\mahintorabiconradfinalproject\include\spring.h
+	<Mass.h>
+	<glm/glm.hpp>
+
+1481000626 u:\graphics2016\mahintorabiconradfinalproject\include\rack.h
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+	<glm/glm.hpp>
+	<vector>
+
+1480907046 u:\graphics2016\mahintorabiconradfinalproject\include\vertex.h
+
+1481001976 u:\graphics2016\mahintorabiconradfinalproject\include\hanger.h
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+	<glm/glm.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<glm/gtx/transform.hpp>
+	<Rack.h>
+
+1480878278 source:u:\graphics2016\mahintorabiconradfinalproject\shader.cpp
+	<cstdlib>
+	<iostream>
+	<fstream>
+	<cstring>
+	"shader.h"
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+
+1481005635 source:u:\graphics2016\mahintorabiconradfinalproject\src\cloth.cpp
+	"Cloth.h"
+	<glm/gtc/type_ptr.hpp>
+	<iostream>
+	"Mass.h"
+	<stdlib.h>
+	<cmath>
+
+1480921776 source:u:\graphics2016\mahintorabiconradfinalproject\src\clothsimulation.cpp
+	"ClothSimulation.h"
+
+1480931400 u:\graphics2016\mahintorabiconradfinalproject\include\clothsimulation.h
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<OpenGL/glext.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glext.h>
+	<glm/glm.hpp>
+
+1480996214 source:u:\graphics2016\mahintorabiconradfinalproject\src\mass.cpp
+	"Mass.h"
+	<iostream>
+
+1481004142 source:u:\graphics2016\mahintorabiconradfinalproject\src\rack.cpp
+	"Rack.h"
+	<glm/gtc/type_ptr.hpp>
+	<glm/gtx/transform.hpp>
+	<iostream>
+	<stack>
+
+1481004430 source:u:\graphics2016\mahintorabiconradfinalproject\src\spring.cpp
+	"Spring.h"
+	<iostream>
+
+1481004169 source:u:\graphics2016\mahintorabiconradfinalproject\src\hanger.cpp
+	"Hanger.h"
 

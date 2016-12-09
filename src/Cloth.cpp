@@ -271,13 +271,13 @@ void Cloth::initCloth(){
 
 
     glBindBuffer(GL_ARRAY_BUFFER, positionID);
-    glBufferData(GL_ARRAY_BUFFER, positionSize * sizeof(GLfloat), positionCords, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, positionSize * sizeof(GLfloat), positionCords, GL_STREAM_DRAW);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
     glEnableVertexAttribArray(0);
 
 
     glBindBuffer(GL_ARRAY_BUFFER, normalID);
-    glBufferData(GL_ARRAY_BUFFER,this->normalsSize * sizeof(GLfloat), normalsCords, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER,this->normalsSize * sizeof(GLfloat), normalsCords, GL_STREAM_DRAW);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
     glEnableVertexAttribArray(1);
 

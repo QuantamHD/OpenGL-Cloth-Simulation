@@ -49,6 +49,7 @@
 		<Unit filename="include/Cloth.h" />
 		<Unit filename="include/ClothSimulation.h" />
 		<Unit filename="include/Entity.h" />
+		<Unit filename="include/Hanger.h" />
 		<Unit filename="include/Mass.h" />
 		<Unit filename="include/Rack.h" />
 		<Unit filename="include/Spring.h" />
@@ -58,6 +59,7 @@
 		<Unit filename="shader.h" />
 		<Unit filename="src/Cloth.cpp" />
 		<Unit filename="src/ClothSimulation.cpp" />
+		<Unit filename="src/Hanger.cpp" />
 		<Unit filename="src/Mass.cpp" />
 		<Unit filename="src/Rack.cpp" />
 		<Unit filename="src/Spring.cpp" />
