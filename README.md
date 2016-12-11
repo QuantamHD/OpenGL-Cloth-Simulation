@@ -5,3 +5,5 @@ This project models and displays a simulation of a cloth attached to a hanger, a
 
 ## Setup
 With [Code::Blocks](http://www.codeblocks.org/) installed, you should be able to open the `.cbp` file and run the project.
+
+[![Video](https://i.ytimg.com/vi/YNIFoLZp5-Q/hqdefault.jpg)](https://www.youtube.com/watch?v=YNIFoLZp5-Q)
